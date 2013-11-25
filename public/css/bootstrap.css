@@ -23,7 +23,7 @@
     -moz-transition: all .5s ease-in-out;
     -o-transition: all .5s ease-in-out;
     transition: all .5s ease-in-out;
-    height: 90px;
+    height: 60px;
     position: relative;
     width: 140px;
     margin: 0 auto;
@@ -764,80 +764,56 @@ footer {
     font-size: .85em;
     padding: 10px;
 }
-.social-icons { display: table }
-.social-icons a { display: table-cell }
-[class^="sicon-"] i,
-[class*=" sicon-"] i {
-    display: block;
-    width: 60px;
-    height: 60px;
-    *margin-right: .3em;
-    line-height: 14px;
-    vertical-align: text-top;
-    background-image: url("../assets/images/css/sicon-set.png");
-    background-repeat: no-repeat;
-    text-indent: -99999px;
+
+.thermal-scale {
+  margin: 50px auto 0;
+  display: table;
+  font-size: 1.4em;
+  font-family: 'ChunkFiveRegular','OpenSans',sans-serif;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 1.9em;
 }
-.sicon-white i { background-image: url("../assets/images/css/sicon-set-white.png") }
-.sicon-black i { background-image: url("../assets/images/css/sicon-set.png") }
-.sicon-neg3 i { background-position: 0px 0 }
-.sicon-neg2 i { background-position: -60px 0 }
-.sicon-neg1 i { background-position: -120px 0 }
-.sicon-zero i { background-position: -180px 0 }
-.sicon-pos1 i { background-position: -240px 0 }
-.sicon-pos2 i { background-position: -300px 0 }
-.sicon-pos3 i { background-position: -360px -1px }
-.social-icons.bordered { border-right: 2px solid #fff }
-.social-icons.bordered a {
-    border: 2px solid #fff;
-    border-right: 0;
-    padding: 6px;
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
+
+.rating {
+  display: table-cell;
+  border: 2px solid white;
+  width: 1.9em;
+  height: 1.9em;
 }
-.social-icons.bordered a:hover { background-color: #fff }
-.social-icons.bordered a:hover i { background-image: url("../assets/images/css/sicon-set.png") }
-.social-icons.bordered-black { border-right: 2px solid #292929 }
-.social-icons.bordered-black a {
-    border: 2px solid #292929;
-    border-right: 0;
+
+div.clickable {
+  position: relative;
 }
-.social-icons.bordered-black a:hover { background-color: #292929 }
-.social-icons.bordered-black a:hover i { background-image: url("../assets/images/css/sicon-set-white.png") }
-.social-icons.hover-big [class^="sicon-"],
-.social-icons.hover-big [class*=" sicon-"] {
-    padding: 9px 8px 8px;
-    -webkit-transition: all .2s ease-in-out;
-    -moz-transition: all .2s ease-in-out;
-    -o-transition: all .2s ease-in-out;
-    transition: all .2s ease-in-out;
+
+div.clickable a {
+  color: #fff;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  text-decoration: none;
+  z-index: 10;
+  filter: alpha(opacity=1);
 }
-.social-icons.hover-big a i {
-    -webkit-transition: all .3s ease-in-out;
-    -moz-transition: all .3s ease-in-out;
-    -o-transition: all .3s ease-in-out;
-    transition: all .3s ease-in-out;
-}
-.social-icons.hover-big a:hover i { background-image: url("../assets/images/css/sicon-set-white.png") }
-.social-icons.hover-big .sicon-facebook:hover { background-color: #3b5998 }
-.social-icons.hover-big .sicon-twitter:hover { background-color: #44cbff }
-.social-icons.hover-big .sicon-linkedin:hover { background-color: #1e79c0 }
-.social-icons.hover-big .sicon-youtube:hover { background-color: #f00 }
-.social-icons.hover-big .sicon-pinterest:hover { background-color: #d90000 }
-.social-icons.hover-big .sicon-search:hover { background-color: #000 }
-.social-icons.hover-big .sicon-place:hover { background-color: #000 }
-.social-icons.hover-big .sicon-phone:hover { background-color: #000 }
-.social-icons.hover-big .sicon-mail:hover { background-color: #000 }
-.social-icons.hover-big .sicon-clock:hover { background-color: #000 }
+
+.neg3:hover { background-color: #164671; }
+.neg2:hover { background-color: #428bca; }
+.neg1:hover { background-color: #9bbedc; }
+.pos3:hover { background-color: #9c221f; }
+.pos2:hover { background-color: #d9534f; }
+.pos1:hover { background-color: #dd9593; }
+.zero a:hover { background-color: #fff; color: #000; }
+
 .fixed-top {
-    position: fixed;
-    top: 0;
-    display: none;
-    opacity: 0;
-    filter: alpha(opacity=0);
+  position: fixed;
+  top: 0;
+  display: none;
+  opacity: 0;
+  filter: alpha(opacity=0);
 }
+
 .fixed-bottom {
     position: fixed;
     bottom: 0;
