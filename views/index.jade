@@ -1,0 +1,38 @@
+extends base
+
+block content
+
+  #top.header
+    .vert-text
+
+      h1= title
+      p.tagline.capitalize How comfortable are you?
+
+      .container
+        .col-md-offset-3.col-md-6
+          .well.main-input
+
+            form.padded(role="form", method="post")
+              label.left Cold
+              label.right Hot
+
+              .btn-group(data-toggle="buttons")
+                label#neg3.btn.btn-default.scale -3
+                  input(type="radio", name="comfort", value="-3")
+                label#neg2.btn.btn-default.scale -2
+                  input(type="radio", name="comfort", value="-2")
+                label#neg1.btn.btn-default.scale -1
+                  input(type="radio", name="comfort", value="-1")
+                label#zero.btn.btn-default.scale 0
+                  input(type="radio", name="comfort", value="0")
+                label#pos1.btn.btn-default.scale +1
+                  input(type="radio", name="comfort", value="+1")
+                label#pos2.btn.btn-default.scale +2
+                  input(type="radio", name="comfort", value="+2")
+                label#pos3.btn.btn-default.scale +3
+                  input(type="radio", name="comfort", value="+3")
+
+              .form-group
+                input.location-input.form-control(placeholder="Where are you?")
+
+              button.btn.btn-primary.btn-lg(type="submit") Submit
