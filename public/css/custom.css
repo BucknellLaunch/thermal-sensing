@@ -1,0 +1,140 @@
+/* Global Styles */
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.vert-text {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.vert-text h1 {
+  padding: 0;
+  margin: 0;
+  font-size: 4.5em;
+  font-weight: 700;
+}
+
+.tagline {
+  font-size: 26px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 800;
+  line-height: 2;
+}
+
+/* Sensing input form */
+
+.main-input {
+  margin-top: 40px;
+}
+
+.location-input {
+  margin: 20px auto 30px auto;
+  width: 85%;
+  height: 3em;
+}
+
+.padded {
+  padding: 35px 0 35px 0;
+}
+
+.scale {
+  font-family: 'Open Sans', sans-serif;
+}
+
+label {
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+/* custom colors for highlights */
+
+#neg3:hover { background-color: #164671; color:white; }
+#neg2:hover { background-color: #428bca; color:white; }
+#neg1:hover { background-color: #9bbedc; color:white; }
+#pos3:hover { background-color: #9c221f; color:white; }
+#pos2:hover { background-color: #d9534f; color:white; }
+#pos1:hover { background-color: #dd9593; color:white; }
+
+/* Full Page Image Header Area */
+
+.header {
+  display: table;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background: url(/img/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+/* Footer */
+
+footer {
+  padding: 100px 0;
+}
+
+.top-scroll {
+  margin-top: 50px;
+}
+
+.top-scroll a {
+  text-decoration: none;
+  color: inherit;
+}
+
+i.scroll {
+  color: #333333;
+}
+
+i.scroll:hover {
+  color: #0a5175;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+	
+  .header {
+	background: url(/img/bg.jpg) no-repeat center center scroll; 
+  }
+
+  .callout {
+	background: url(/img/callout.jpg) no-repeat center center scroll; 
+  }
+
+  .map {
+	height: 75%;
+  }
+
+}
+
+@media (min-width: 479px) {
+  .scale {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.33;
+  }
+}
+
+/* bootstrap overrides */
+.well {
+  background-color: rgba(245, 245, 245, 0.65);
+}
