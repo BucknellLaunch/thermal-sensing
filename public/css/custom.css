@@ -26,6 +26,10 @@ body {
   line-height: 2;
 }
 
+.records {
+  margin-top: 100px;
+}
+
 /* Sensing input form */
 
 .main-input {

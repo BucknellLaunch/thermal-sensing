@@ -12,7 +12,7 @@ var path = require('path');
 // db connection
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/tsensing');
+var db = monk('localhost:27017/tsense');
 
 var app = express();
 
@@ -36,6 +36,8 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.get('/records', routes.records(db));
+app.post('/recordcomfort', routes.recordcomfort(db));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

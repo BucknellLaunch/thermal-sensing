@@ -1,0 +1,23 @@
+extends base
+
+block content
+	.container.records
+		.row
+			.col-md-offset-2.col-md-8
+				h1= title
+
+				table.table.table-striped
+					thead
+						tr
+							th #
+							th Timestamp
+							th Location
+							th Level
+
+					tbody
+						each record, i in records
+							tr
+								td #{i+1}
+								td #{record.timestamp}
+								td #{record.location}
+								td #{record.level}
