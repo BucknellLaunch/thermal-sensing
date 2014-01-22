@@ -5,7 +5,7 @@
 
 var express = require('express');
 var routes = require('./routes');
-var user = require('./routes/user');
+var comfort = require('./routes/comfort');
 var http = require('http');
 var path = require('path');
 
@@ -37,8 +37,8 @@ if ('development' == app.get('env')) {
 
 app.get('/', routes.index);
 app.get('/thanks', routes.thanks);
-app.get('/records', routes.records(db));
-app.post('/recordcomfort', routes.recordcomfort(db));
+app.get('/records', comfort.records(db));
+app.post('/recordcomfort', comfort.recordcomfort(db));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
