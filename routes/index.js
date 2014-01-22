@@ -7,6 +7,10 @@ function index(req, res) {
 	res.render('index', { title: 'Thermal Sensing' });
 }
 
+function thanks(req, res) {
+	res.render('thanks', { title: 'Thanks!' });
+}
+
 function recordcomfort(db) {
 	return function(req, res) {
 		
@@ -28,8 +32,8 @@ function recordcomfort(db) {
 				res.send("There was an error adding to the DB");
 			}
 			else {
-				res.location('/');
-				res.redirect('/');
+				res.location('/thanks');
+				res.redirect('/thanks');
 			}
 		});
 	}
@@ -46,5 +50,6 @@ function records(db) {
 
 // Module exports
 exports.index = index;
+exports.thanks = thanks;
 exports.recordcomfort = recordcomfort;
 exports.records = records;
