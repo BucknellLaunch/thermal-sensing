@@ -8,6 +8,7 @@ var routes = require('./routes');
 var comfort = require('./routes/comfort');
 var http = require('http');
 var path = require('path');
+var expressValidator = require('express-validator');
 
 // db connection
 var mongo = require('mongodb');
@@ -24,6 +25,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(expressValidator());					// middleware for form validation
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
@@ -36,9 +38,9 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
+app.post('/', comfort.recordcomfort(db));
 app.get('/thanks', routes.thanks);
 app.get('/records', comfort.records(db));
-app.post('/recordcomfort', comfort.recordcomfort(db));
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

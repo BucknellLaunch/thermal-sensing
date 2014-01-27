@@ -5,28 +5,42 @@
 function recordcomfort(db) {
 	return function(req, res) {
 		
-		// Get form values. We need the comfort level and location
-		var level = parseInt(req.body.level);
-		var location = req.body.location;
-		var now = new Date();
+		// Make sure we have good input
+		req.assert('level', "You need to select a comfort level!").notEmpty();
+		req.assert('location', "You can't leave your location blank!").notEmpty();
+		var errors = req.validationErrors();
 
-		// Set the collection
-		var collection = db.get('comfort');
+		if (errors) {
+			// Render the index and display the errors
+			res.render('index', {
+				title: 'Thermal Sensing',
+				errors: errors
+			});
+		}
+		else {
+			// Get form values. We need the comfort level and location
+			var level = parseInt(req.body.level);
+			var location = req.body.location;
+			var now = new Date();
 
-		// Submit to the DB
-		collection.insert({
-			"level": level,
-			"location": location,
-			"timestamp": now.toJSON()
-		}, function (e, doc) {
-			if (e) {
-				res.send("There was an error adding to the DB");
-			}
-			else {
-				res.location('/thanks');
-				res.redirect('/thanks');
-			}
-		});
+			// Set the collection
+			var collection = db.get('comfort');
+
+			// Submit to the DB
+			collection.insert({
+				"level": level,
+				"location": location,
+				"timestamp": now.toJSON()
+			}, function (e, doc) {
+				if (e) {
+					res.send("There was an error adding to the DB");
+				}
+				else {
+					res.location('/thanks');
+					res.redirect('/thanks');
+				}
+			});
+		}
 	}
 }
 

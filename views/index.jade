@@ -12,7 +12,15 @@ block content
         .col-md-offset-3.col-md-6
           .well.main-input
 
-            form.padded(role="form", method="post", action="recordcomfort")
+            if errors
+              .alert.alert-danger.error
+                each error in errors
+                  p
+                    strong ERROR 
+                    | #{error.msg}
+                    
+            form.padded(role="form", method="post", action="")
+
               label.left Cold
               label.right Hot
 
