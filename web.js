@@ -6,6 +6,7 @@
 var express = require('express');
 var routes = require('./routes');
 var comfort = require('./routes/comfort');
+var admin = require('./routes/admin');
 var http = require('http');
 var path = require('path');
 var expressValidator = require('express-validator');
@@ -41,6 +42,7 @@ app.get('/', routes.index);
 app.post('/', comfort.recordcomfort(db));
 app.get('/thanks', routes.thanks);
 app.get('/records', comfort.records(db));
+app.get('/rickshaw', admin.rickshaw);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
