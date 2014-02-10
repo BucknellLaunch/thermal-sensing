@@ -43,6 +43,9 @@ function recordComfort(req, res) {
       if (err) {
         res.send("There was an error adding to the DB");
       } else {
+        Comfort.findById(comfort, function (err, doc) {
+          console.log(doc);
+        });
         res.location('/thanks');
         res.redirect('/thanks');
       }
