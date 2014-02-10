@@ -22,7 +22,7 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(expressValidator());					// middleware for form validation
+app.use(expressValidator());          // middleware for form validation
 app.use(express.methodOverride());
 app.use(express.cookieParser('your secret here'));
 app.use(express.session());
@@ -35,10 +35,10 @@ if ('development' == app.get('env')) {
 }
 
 fs.readdirSync('./controllers').forEach(function(file) {
-	if (file.substr(-3) == '.js') {
-		route = require('./controllers/' + file);
-		route.controller(app);		// add the controller
-	}
+  if (file.substr(-3) == '.js') {
+    route = require('./controllers/' + file);
+    route.controller(app);    // add the controller
+  }
 });
 
 http.createServer(app).listen(app.get('port'), function(){
