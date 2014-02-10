@@ -2,18 +2,15 @@
 /**
  * Module dependencies.
  */
-
 var express = require('express');
-var routes = require('./routes');
-var comfort = require('./routes/comfort');
 var http = require('http');
 var path = require('path');
+var fs = require('fs');
 var expressValidator = require('express-validator');
 
 // db connection
-var mongo = require('mongodb');
-var monk = require('monk');
-var db = monk('localhost:27017/tsense');
+var mongoose = require('mongoose');
+var db = mongoose.connect('mongodb://localhost/tsense');
 
 var app = express();
 
@@ -37,10 +34,12 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.post('/', comfort.recordcomfort(db));
-app.get('/thanks', routes.thanks);
-app.get('/records', comfort.records(db));
+fs.readdirSync('./controllers').forEach(function(file) {
+	if (file.substr(-3) == '.js') {
+		route = require('./controllers/' + file);
+		route.controller(app);		// add the controller
+	}
+});
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));

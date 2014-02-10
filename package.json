@@ -9,7 +9,6 @@
     "express": "3.4.8",
     "express-validator": "*",
     "jade": "*",
-    "mongodb": "*",
-    "monk": "*"
+    "mongoose": "*"
   }
 }

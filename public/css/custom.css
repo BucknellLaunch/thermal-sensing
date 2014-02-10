@@ -6,6 +6,16 @@ body {
   width: 100%;
 }
 
+.content {
+  width: 75%;
+  margin-top: 120px;
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .vert-text {
   display: table-cell;
   vertical-align: middle;

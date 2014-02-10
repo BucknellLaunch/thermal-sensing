@@ -1,20 +1,21 @@
-extends layout
+extends ../base
 
-block page
-	h1= title
+block content
+	.content.centered
+		h1= title
 
-	table.table.table-striped
-		thead
-			tr
-				th #
-				th Timestamp
-				th Location
-				th Level
-
-		tbody
-			each record, i in records
+		table.table.table-striped
+			thead
 				tr
-					td #{i+1}
-					td #{record.timestamp}
-					td #{record.location}
-					td #{record.level}
+					th #
+					th Timestamp
+					th Location
+					th Level
+
+			tbody
+				each record, i in records
+					tr
+						td #{i+1}
+						td #{record.timestamp}
+						td #{record.location}
+						td #{record.level}
