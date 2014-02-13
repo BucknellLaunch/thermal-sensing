@@ -1,4 +1,4 @@
-extends ../base
+extends base
 
 block content
 
@@ -10,7 +10,7 @@ block content
 
       .container
         .col-md-offset-3.col-md-6
-          .well.main-input.desktop
+          #content.well.main-input
 
             if errors
               .alert.alert-danger.error
@@ -19,7 +19,7 @@ block content
                     strong ERROR 
                     | #{error.msg}
                     
-            form.padded(role="form", method="post", action="")
+            form.padded(role="form", method="post", action="", name="comfort")
 
               label.left Cold
               label.right Hot
@@ -31,7 +31,7 @@ block content
                   input(type="radio", name="level", value="-2")
                 label#neg1.btn.btn-default.btn-lg.scale -1
                   input(type="radio", name="level", value="-1")
-                label#zero.btn.btn-default.btn-lg.scale 0 &nbsp;
+                label#zero.btn.btn-default.btn-lg.scale 0
                   input(type="radio", name="level", value="0")
                 label#pos1.btn.btn-default.btn-lg.scale +1
                   input(type="radio", name="level", value="+1")
@@ -44,3 +44,5 @@ block content
                 input.location-input.form-control(name="location", placeholder="Where are you?")
 
               button.btn.btn-primary.btn-lg(type="submit") Submit
+
+  #key.hidden= key
