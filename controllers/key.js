@@ -9,9 +9,11 @@ var encrypt = require('../lib/encrypt');
 function index(req, res) {
 	// Make the unique key first
 	secretKey = encrypt.generateKey()
-  res.render('index', { title: 'Thermal Sensing', key: secretKey });
+  res.render('index', {
+  	title: 'Thermal Sensing',
+  	key: secretKey
+  });
 
-  console.log('continuing');
   var key = new Key({ value: secretKey });
   key.save(function (err) {
   	if (err) { console.log('ERROR SAVING KEY!'); }
