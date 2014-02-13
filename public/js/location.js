@@ -23,11 +23,11 @@ $(document).ready(function ($) {
 	$.ajax({
 		url: 'http://yamaha.bucknell.edu/cgi-bin/client_status.pl',
 		dataType: 'html',
-		error: function(data) {
+		success: function(data) {
 			userAP = extractAP(data);
 			getLocation(userAP);
 		},
-		success: function(req, err, exception) {
+		error: function(req, err, exception) {
 			$connectionError = $(
 				'<div class="alert alert-warning error">'
 				+'<p>'
