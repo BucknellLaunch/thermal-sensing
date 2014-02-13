@@ -5,9 +5,8 @@ function getLocation(accessPoint) {
 		url: '/api/aplist?key=' + key,
 		dataType: 'json',
 		success: function(data) {
-			console.log(data);
 			var location = data[accessPoint];
-			form.elements['location'].value = location;
+			if (location) form.elements['location'].value = location;
 		},
 		error: function(req, err, exception) {
 			console.log("couldn't get user location");

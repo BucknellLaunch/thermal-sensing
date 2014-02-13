@@ -27,21 +27,16 @@ function index(req, res) {
 
 function accessPoints(req, res) {
   secretKey = req.query.key;
-  Key.findOne({ value: secretKey }, function(err, key) {
-    if (err) {
-      console.log('KEY NOT FOUND');
-    } else {
-      apListLoc = path.join(__dirname, '../private/aplist.json');
-      fs.readFile(apListLoc, function (err, data) {
-        if (err) console.log(err);
-        res.send(data);
-      });
-
-      // Remove the key
-      key.remove(function(err, key) {
-        if (err) console.log(err);
-      });
+  Key.findOneAndRemove({ value: secretKey }, function(err, key) {
+    if (err || !key) {
+      res.send({ error: "406", message: "Key not found"});
     }
+
+    apListLoc = path.join(__dirname, '../private/aplist.json');
+    fs.readFile(apListLoc, function (err, data) {
+      if (err) console.log(err);
+      res.send(data);
+    });
   });
 }
 
