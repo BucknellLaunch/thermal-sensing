@@ -12,14 +12,17 @@ block content
         .col-md-offset-3.col-md-6
           #content.well.main-input
 
-            if errors
-              .alert.alert-danger.error
-                each error in errors
-                  p
-                    strong ERROR 
-                    | #{error.msg}
+            #level-error.alert.alert-danger.error
+              p
+                strong ERROR 
+                | You need to select a comfort level!
+
+            #location-error.alert.alert-danger.error
+              p
+                strong ERROR 
+                | You can't leave your location blank!
                     
-            form.padded(role="form", method="post", action="", name="comfort")
+            form.padded(role="form", method="post", action="/", name="comfort")
 
               label.left Cold
               label.right Hot
@@ -45,4 +48,7 @@ block content
 
               button.btn.btn-primary.btn-lg(type="submit") Submit
 
-  #key.hidden= key
+
+block scripts
+  script(src='/js/location.js')
+  script(src='/js/validate-comfort.js')
