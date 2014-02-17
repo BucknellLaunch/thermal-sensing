@@ -2,11 +2,12 @@ function getLocation(accessPoint) {
 	var key = $('#key').text();
 	var form = document.forms['comfort'];
 	$.ajax({
-		url: '/api/aplist?key=' + key,
+		url: '/api/location?ap=' + accessPoint,
 		dataType: 'json',
 		success: function(data) {
-			var location = data[accessPoint];
-			if (location) form.elements['location'].value = location;
+			console.log(data);
+			var location = data.location;
+			if (!data.errors) form.elements['location'].value = location;
 		},
 		error: function(req, err, exception) {
 			console.log("couldn't get user location");

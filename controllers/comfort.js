@@ -2,6 +2,14 @@ var mongoose = require('mongoose');
 var Comfort = require('../models/comfort');
 
 /*
+ * Displays the index page that allows the user to
+ * input comfort level and location
+ */
+function index(req, res) {
+  res.render('comfort/index', { title: 'Thermal Sensing' });
+}
+
+/*
  * Displays a thank you page when a user completes
  * the comfort form.
  */
@@ -58,6 +66,7 @@ function records(req, res) {
 
 
 module.exports.controller = function(app) {
+  app.get('/', index);
   app.post('/', recordComfort);
   app.get('/thanks', thanks);
   app.get('/records', records);
