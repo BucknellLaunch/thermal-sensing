@@ -23,34 +23,22 @@ function thanks(req, res) {
  * not blank.
  */
 function recordComfort(req, res) {
-  req.assert('level', "You need to select a comfort level!").notEmpty();
-  req.assert('location', "You can't leave your location blank!").notEmpty();
-  var errors = req.validationErrors();
+  var comfort = new Comfort({
+    level: parseInt(req.body.level),
+    location: req.body.location
+  });
 
-  if (errors) {
-    res.render('index', {
-      title: 'Thermal Sensing',
-      errors: errors
-    });
-  }
-  else {
-    var comfort = new Comfort({
-      level: parseInt(req.body.level),
-      location: req.body.location
-    });
-
-    comfort.save(function(err) {
-      if (err) {
-        res.send("There was an error adding to the DB");
-      } else {
-        Comfort.findById(comfort, function (err, doc) {
-          console.log(doc);
-        });
-        res.location('/thanks');
-        res.redirect('/thanks');
-      }
-    });
-  }
+  comfort.save(function(err) {
+    if (err) {
+      res.send("There was an error adding to the DB");
+    } else {
+      Comfort.findById(comfort, function (err, doc) {
+        console.log(doc);
+      });
+      res.location('/thanks');
+      res.redirect('/thanks');
+    }
+  });
 }
 
 /*
