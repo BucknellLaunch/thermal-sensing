@@ -1,6 +1,5 @@
 # Data HTTP GET Requests
 
----
 
 ## Overview
 The thermal sensing data API will return comfort data to a building administrator based on the parameters passed to the service. This document describes the protocol used to send data to the server and to return a response to the client.
