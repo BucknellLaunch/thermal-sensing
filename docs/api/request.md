@@ -1,10 +1,4 @@
-# Team FreeBCD
-
-#### Data API Spec
-
-Jonathan Como, Geoff Barnes, Liz Dwornik
-
-
+# Data HTTP GET Requests
 
 ---
 
