@@ -47,9 +47,11 @@ body {
 }
 
 .location-input {
-  margin: 20px auto 30px auto;
-  text-align: center;
   height: 3em;
+}
+
+.level-input {
+  margin-bottom: 30px;
 }
 
 .error {
@@ -57,7 +59,7 @@ body {
 }
 
 .padded {
-  padding: 35px 0 35px 0;
+  padding-top: 35px;
 }
 
 .scale {

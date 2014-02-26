@@ -21,8 +21,8 @@ function extractAP(rawHtml) {
 
 $(document).ready(function ($) {
 	$.ajax({
-		url: 'http://yamaha.bucknell.edu/cgi-bin/client_status.pl',
-		dataType: 'html',
+		url: 'http://yamaha.bucknell.edu/cgi-bin/bssid.cgi',
+		dataType: 'text',
 		success: function(data) {
 			userAP = extractAP(data);
 			getLocation(userAP);
