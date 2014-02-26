@@ -1,0 +1,165 @@
+/* Global Styles */
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+.content {
+  width: 75%;
+  margin-top: 120px;
+}
+
+.centered {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.vert-text {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.vert-text h1 {
+  padding: 0;
+  margin: 0;
+  font-size: 4.5em;
+  font-weight: 700;
+}
+
+.tagline {
+  font-size: 26px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 800;
+  line-height: 2;
+}
+
+.page {
+  margin-top: 100px;
+}
+
+/* Sensing input form */
+
+.main-input {
+  margin-top: 40px;
+}
+
+.location-input {
+  height: 3em;
+}
+
+.level-input {
+  margin-bottom: 30px;
+}
+
+.error {
+  text-align: left;
+}
+
+.padded {
+  padding-top: 35px;
+}
+
+.scale {
+  font-family: 'Open Sans', sans-serif;
+}
+
+label {
+  font-size: 16px;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.right {
+  float: right;
+}
+
+.left {
+  float: left;
+}
+
+/* custom colors for highlights */
+
+#neg3:hover { background-color: #164671; color:white; }
+#neg2:hover { background-color: #428bca; color:white; }
+#neg1:hover { background-color: #9bbedc; color:white; }
+#pos3:hover { background-color: #9c221f; color:white; }
+#pos2:hover { background-color: #d9534f; color:white; }
+#pos1:hover { background-color: #dd9593; color:white; }
+
+/* Full Page Image Header Area */
+
+.header {
+  display: table;
+  height: 100%;
+  width: 100%;
+  position: relative;
+  background: url(../img/bg.jpg) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+/* Footer */
+
+footer {
+  padding: 100px 0;
+}
+
+.top-scroll {
+  margin-top: 50px;
+}
+
+.top-scroll a {
+  text-decoration: none;
+  color: inherit;
+}
+
+i.scroll {
+  color: #333333;
+}
+
+i.scroll:hover {
+  color: #0a5175;
+}
+
+/* Responsive */
+
+@media (max-width: 768px) {
+  
+  .header {
+  background: url(../img/bg.jpg) no-repeat center center scroll; 
+  }
+
+  .callout {
+  background: url(../img/callout.jpg) no-repeat center center scroll; 
+  }
+
+  .map {
+  height: 75%;
+  }
+
+}
+
+@media (max-width: 479px) {
+  .scale {
+    padding: 5px 10px;
+    font-size: 11px;
+    line-height: 1.5;
+    border-radius: 3px;
+  }
+}
+
+/* bootstrap overrides */
+.well {
+  background-color: rgba(245, 245, 245, 0.65);
+}
+
+.lead {
+  font-family: 'Open Sans', sans-serif;
+}

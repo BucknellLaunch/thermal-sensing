@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="header" id="top">
+  <div class="vert-text">
+    <h1>Thermal Sensing</h1>
+
+    <p class="tagline capitalize">How comfortable are you?</p>
+
+    <div class="container">
+      <div class="col-md-offset-3 col-md-6">
+        <div class="well main-input" id="content">
+
+          <div class="alert alert-danger">
+            {% for error in errors %}
+            <p><strong>Error!</strong> {{ error }}
+            {% endfor %}
+          </div>
+
+          <form action="/" class="padded" id="comfort" method=
+            "post" name="comfort">
+            <label class="left">Cold</label><label class=
+              "right">Hot</label>
+
+            <div class="level-input btn-group" data-toggle=
+              "buttons">
+              <label class="btn btn-default btn-lg scale" id=
+                "neg3">-3<input name="level" type="radio"
+                value="-3"></label><label class=
+                "btn btn-default btn-lg scale" id=
+                "neg2">-2<input name="level" type="radio"
+                value="-2"></label><label class=
+                "btn btn-default btn-lg scale" id=
+                "neg1">-1<input name="level" type="radio"
+                value="-1"></label><label class=
+                "btn btn-default btn-lg scale" id=
+                "zero">0<input name="level" type="radio" value=
+                "0"></label><label class=
+                "btn btn-default btn-lg scale" id=
+                "pos1">+1<input name="level" type="radio"
+                value="+1"></label><label class=
+                "btn btn-default btn-lg scale" id=
+                "pos2">+2<input name="level" type="radio"
+                value="+2"></label><label class=
+                "btn btn-default btn-lg scale" id=
+                "pos3">+3<input name="level" type="radio"
+                value="+3"></label>
+            </div>
+
+            <div class="form-group" id="autocomplete">
+            </div><input style="visibility: hidden" type=
+            "submit">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block scripts %}
+<script src="/public/js/complete.ly.1.0.1.js"></script>
+<script src="/public/js/autocomplete-location.js"></script>
+<script src="/public/js/location.js"></script>
+<script src="/public/js/validate-comfort.js"></script>
+{% endblock %}
