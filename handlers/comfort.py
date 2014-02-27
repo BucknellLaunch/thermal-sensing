@@ -26,6 +26,18 @@ class ComfortHandler(BaseHandler):
 			if c:
 				c.put()
 				self.render('comfort/thanks')
+				self.redirect('thanks')
 			else:
 				errors = { 'location': loc_string + ' is not a valid location.' }
 				self.render('comfort/index', errors=errors)
+
+
+class ThanksHandler(BaseHandler):
+	def get(self):
+		self.render('comfort/thanks')
+
+
+class RecordsHandler(BaseHandler):
+	def get(self):
+		records = list(Comfort.all())
+		self.render('comfort/records', records=records)
