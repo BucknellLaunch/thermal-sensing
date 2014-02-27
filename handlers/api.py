@@ -17,7 +17,6 @@ class LocationsAPI(BaseHandler):
 
 		if building:
 			if floor:
-				print 'floor'
 				f = lambda loc: loc.building == building and loc.floor == floor
 			else:
 				f = lambda loc: loc.building == building
