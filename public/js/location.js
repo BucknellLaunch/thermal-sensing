@@ -31,7 +31,7 @@ $(document).ready(function ($) {
 			$connectionError = $(
 				'<div class="alert alert-warning error">'
 				+'<p>'
-				+'<strong>WARNING</strong> '
+				+'<strong>Warning!</strong> '
 				+'Connect to WiFi to improve your location.'
 				+'</p>'
 				+'</div>');

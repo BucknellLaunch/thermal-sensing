@@ -8,9 +8,8 @@ var auto = completely(locationForm, {
 
 $.ajax({
   url: '/api/locations',
-  dataType: 'text',
-  success: function(data) {
-    options = data.split('\n');
+  dataType: 'json',
+  success: function(options) {
     auto.onChange = function(text) {
       if (text.length == 0) {
         auto.options = [];
