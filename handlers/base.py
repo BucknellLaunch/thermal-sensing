@@ -40,7 +40,7 @@ class BaseHandler(webapp2.RequestHandler):
  def initialize(self, *a, **kw):
 	webapp2.RequestHandler.initialize(self, *a, **kw)
 	aid = self.read_secure_cookie('admin_id')
-	self.admin = aid and Admin.by_id(int(uid))
+	self.admin = aid and Admin.by_id(int(aid))
 	self.json = self.request.url.endswith('.json')
 
 

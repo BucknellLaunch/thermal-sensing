@@ -19,9 +19,17 @@
                 <li class="page-scroll">
                     <a href="#about">About</a>
                 </li>
+
+                {% if admin %}
                 <li>
                     <a href="/login">Login</a>
                 </li>
+                {% else %}
+                <li>
+                    <a href="/login">Login</a>
+                </li>
+                {% endif %}
+                
             </ul>
         </div>
         <!-- /.navbar-collapse -->
