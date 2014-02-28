@@ -1,23 +1,32 @@
 {% extends 'base.html' %}
 
+
 {% block content %}
-<h1>Login</h1>
+<div class="header" id="top">
+  <div class="vert-text">
+  	<div class="container">
+  		<div class="col-md-offset-4 col-md-4">
+  			<div class="well">
+	    		<p class="tagline capitalize centered">Login</p>
 
-<form method="POST">
-	<table>
-		<tr>
-			<td><label>Username</label></td>
-			<td><input name="username" type="text"/></td>
-		</tr>
-		<tr>
-			<td><label>Password</label></td>
-			<td><input name="password" type="password"/></td>
-		</tr>
-	</table>
+			    <form method="post">
 
-	<div class="error">{{ error }}</div>
-	
-	<input type="submit"/>
-	<p>Don't have an account? <a href="/signup">Sign up</a></p>
-</form>
+			    	<div class="form-group">
+			    		<input name="username" type="text" class="form-control" placeholder="Username"/></td>
+			    	</div>
+			    	
+			    	<div class="form-group">
+			    		<input name="password" type="password" class="form-control" placeholder="Passowrd"/></td>
+			    	</div>
+
+			    	<div class="form-group">
+			    		<input type="submit" class="btn btn-default"/>
+			    	</div>
+
+			    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
