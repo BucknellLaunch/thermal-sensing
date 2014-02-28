@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+{% include 'nav.html' %}
+
 <div class="header background" id="top">
   <div class="vert-text">
     <h1>Thermal Sensing</h1>
@@ -57,6 +60,9 @@
     </div>
   </div>
 </div>
+
+{% include 'about.html' %}
+
 {% endblock %}
 
 
@@ -64,4 +70,5 @@
 <script src="/public/js/complete.ly.1.0.1.js"></script>
 <script src="/public/js/autocomplete-location.js"></script>
 <script src="/public/js/location.js"></script>
+<script src="/public/js/scrolling-nav.js"></script>
 {% endblock %}
