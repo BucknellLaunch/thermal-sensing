@@ -1,10 +1,15 @@
 import random
 import string
+from datetime import datetime
 
 import hashlib
 import hmac
 
 from config import app_config as cfg
+
+def random_hash():
+	now = str(datetime.now())
+	return hash_str(now)
 
 ### COOKIE HASHING FUNCTIONS
 SECRET = cfg['SECRET_KEY']
