@@ -30,6 +30,7 @@ class Admin(db.Model):
 		a = cls.all().filter('name = ', name).get()
 		return a
 
+	@classmethod
 	def by_api_key(cls, api_key):
 		a = cls.all().filter('api_key = ', api_key).get()
 		return a

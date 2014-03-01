@@ -7,7 +7,8 @@ route_list = [
 	('/login', LoginHandler),
 	('/logout', LogoutHandler),
 	('/dashboard', DashboardHandler),
-	('/api/locations', LocationsAPI)
+	('/api/locations', LocationsAPI),
+	('/api/data', DataAPI)
 ]
 
 # ?: -- means we don't want it as a query parameter

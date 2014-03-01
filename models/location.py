@@ -36,6 +36,12 @@ class Location(db.Model):
 	room = db.StringProperty()
 
 	@classmethod
+	def create(cls, loc):
+		building, floor, room = parse_location(loc)
+		key = db_key(building, floor, room)
+		return cls(key_name=key, building=building, floor=floor, room=room)
+
+	@classmethod
 	def by_id(cls, loc_id):
 		return cls.get_by_id(loc_id)
 
@@ -44,11 +50,10 @@ class Location(db.Model):
 		key = db_key(*parse_location(loc))
 		return cls.get_by_key_name(key)
 
-	@classmethod
-	def create(cls, loc):
-		building, floor, room = parse_location(loc)
-		key = db_key(building, floor, room)
-		return cls(key_name=key, building=building, floor=floor, room=room)
+	def as_dict(self):
+		return { 'building': 	self.building,
+						 'floor': 		self.floor,
+						 'room': 			self.room }
 
 	def __str__(self):
 		if self.room is None:
