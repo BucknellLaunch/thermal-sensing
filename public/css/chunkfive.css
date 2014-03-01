@@ -1,0 +1,74 @@
+@font-face {
+    font-family: 'ChunkFiveRegular';
+    src: url('../fonts/Chunkfive-webfont.eot');
+    src: url('../fonts/Chunkfive-webfont.eot?#iefix') format('embedded-opentype'),url('../fonts/Chunkfive-webfont.woff') format('woff'),url('../fonts/Chunkfive-webfont.ttf') format('truetype'),url('../fonts/Chunkfive-webfont.svg#ChunkFiveRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 13.5px 0;
+    font-family: inherit;
+    font-weight: bold;
+    line-height: 27px;
+    color: inherit;
+    text-rendering: optimizelegibility;
+}
+h1 small,
+h2 small,
+h3 small,
+h4 small,
+h5 small,
+h6 small {
+    font-weight: normal;
+    line-height: 1;
+    color: #bbb;
+}
+h1,
+h2,
+h3 { line-height: 54px }
+h1 {
+    font-size: 62px;
+    font-family: 'ChunkFiveRegular','Open Sans',sans-serif;
+    line-height: 81px;
+    letter-spacing: 1px;
+}
+h2 { font-size: 42.75px; }
+h3 { font-size: 33.25px; }
+h4 {
+    font-size: 19px;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #aaa;
+    letter-spacing: 1px;
+}
+h5 {
+    font-size: 19px;
+    text-transform: uppercase;
+    font-weight: 800;
+    margin: 19.28571428571429px 0;
+    letter-spacing: 1px;
+}
+h6 {
+    font-size: 15.200000000000001px;
+    text-transform: uppercase;
+    font-weight: 800;
+    padding: 13.5px 0;
+    letter-spacing: 1px;
+    margin: 0;
+}
+h1 small { font-size: 33.25px }
+h2 small { font-size: 23.75px }
+h3 small { font-size: 19px }
+h4 small { font-size: 19px }
+h5 small {
+    letter-spacing: 1px;
+    font-size: 11px;
+    font-weight: bold;
+}
