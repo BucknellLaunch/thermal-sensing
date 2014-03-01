@@ -63,6 +63,13 @@ p {
   font-weight: 700;
 }
 
+@media (max-width: 767px) {
+  .vert-text {
+    padding-top: 40px;
+    padding-bottom: 80px;
+  }
+}
+
 .tagline {
   font-size: 26px;
   font-family: 'Montserrat', sans-serif;
@@ -247,6 +254,12 @@ i.scroll:hover {
   padding-bottom: 8em;
 }
 
+@media (min-width: 767px) {
+  .content-section {
+    padding-top: 13em;
+    padding-bottom: 13em;
+  }
+}
 
 /* Responsive */
 
