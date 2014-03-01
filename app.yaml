@@ -18,5 +18,9 @@ handlers:
 - url: /public
   static_dir: public
 
+- url: /favicon.ico
+  static_files: public/favicon.ico
+  upload: public/favicon.ico
+
 - url: /.*
   script: main.application
