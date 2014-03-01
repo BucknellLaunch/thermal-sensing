@@ -16,23 +16,29 @@ class Comfort(db.Model):
 			return cls(level=level, location=location)
 
 	@classmethod
-	def by_level(cls, level):
+	def by_level(cls, level, query=None):
+		if not query:
+			query = cls.all()
+		return query.filter('level = ', level)
+
+	@classmethod
+	def by_level_greater_than(cls, level, query=None):
+		if not query:
+			query = cls.all()
+		return query.filter('level > ', level)
+
+	@classmethod
+	def by_level_less_than(cls, level, query=None):
+		if not query:
+			query = cls.all()
+		return query.filter('level < ', level)
+
+	@classmethod
+	def by_date_from(cls, date, query=None):
 		pass
 
 	@classmethod
-	def by_level_greater_than(cls, level):
-		pass
-
-	@classmethod
-	def by_level_less_than(cls, level):
-		pass
-
-	@classmethod
-	def by_date_from(cls, date):
-		pass
-
-	@classmethod
-	def by_date_to(cls, date):
+	def by_date_to(cls, date, query=None):
 		pass
 
 	@classmethod
