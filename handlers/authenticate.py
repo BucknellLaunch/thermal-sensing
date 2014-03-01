@@ -8,7 +8,7 @@ class LoginHandler(BaseAuthenticationHandler):
 	if not self.admin:
 		self.render('admin/login')
 	else:
-		self.redirect('/')
+		self.redirect('/dashboard')
 
  def post(self):
 	username = self.request.get('username')
@@ -18,7 +18,7 @@ class LoginHandler(BaseAuthenticationHandler):
 
 	if a:
 		self.login(a)
-		self.redirect('/')
+		self.redirect('/dashboard')
 	else:
 		msg = "Invalid credentials."
 		self.render('admin/login', error=msg)

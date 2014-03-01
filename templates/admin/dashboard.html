@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="content centered">
+	<h1>{{ admin.name }}</h1>
+	<dl class="dl-horizontal">
+  	<dt>Display</dt>
+  	<dd>{{ admin.display }}</dd>
+  	<dt>Created</dt>
+  	<dd>{{ admin.created }}</dd>
+  	<dt>API Key</dt>
+  	<dd>{{ admin.api_key }}</dd>
+  	<dt>API Requests</dt>
+  	<dd>{{ admin.api_requests }}</dd>
+  	<dt>Last API Access</dt>
+  	<dd>{{ admin.api_last_access }}</dd>
+	</dl>
+</div>
+{% endblock %}

@@ -6,6 +6,7 @@ route_list = [
 	('/records', RecordsHandler),
 	('/login', LoginHandler),
 	('/logout', LogoutHandler),
+	('/dashboard', DashboardHandler),
 	('/api/locations', LocationsAPI)
 ]
 
