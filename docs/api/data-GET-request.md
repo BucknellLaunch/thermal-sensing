@@ -12,10 +12,8 @@ This is a RESTful API. The endpoint is `/api/data`
 
 ---
 
-## Requests
-The API can be accessed by sending an HTTP request to the endpoint with various parameters. The parameters are listed below with a brief description. All parameters are optional with the exception of key. A building administrator will have access to a unique API key* that he may use to access the API. Parameters can be specified via the query string in the HTTP request.
-
-\* *At this point the key functionality is not implemented (requests can be made without it)*
+## GET Requests
+The API can be accessed by sending an HTTP request to the endpoint with various parameters. The parameters are listed below with a brief description. All parameters are optional with the exception of key. A building administrator will have access to a unique API key that he may use to access the API. Parameters can be specified via the query string in the HTTP request.
 
 
 ### Parameters
@@ -34,7 +32,7 @@ These parameters are independent and can be mixed and matched. No parameters can
 #### Key
 Used to authenticate yourself with the API. The key can be found in the admin dashboard.
 
-`/api/data?key=AIzaSyAc67jazYdlcMitH7omJ3B9RhqpYN6k1W4`
+`/api/data?key=eg8095v60b29`
 
 
 #### Location
@@ -104,7 +102,7 @@ On error, the JSON object will contain the error value and a message describing 
 
 ```
 {
-	"error": 436,
-	"message": "Location specified in an invalid format."
+	"error": 431,
+	"message": "Invalid API key."
 }
 ```
