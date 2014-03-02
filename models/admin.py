@@ -19,7 +19,7 @@ class Admin(db.Model):
 	def record_api_access(self):
 		self.api_requests += 1
 		self.api_last_access = datetime.now()
-		db.put(a)
+		db.put(self)
 
 	@classmethod
 	def by_id(cls, aid):

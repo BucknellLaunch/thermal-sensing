@@ -86,6 +86,7 @@ class DataAPI(BaseHandler):
 			self.render_json(self.error_code)
 		else:
 			self.render_json([comfort.as_dict() for comfort in comforts])
+		a.record_api_access()
 
 
 	def comforts_by_location(self, location):
