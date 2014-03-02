@@ -63,6 +63,7 @@ class DataAPI(BaseHandler):
 		a = Admin.by_api_key(key)
 		if not a:
 			self.render_json(errors.INVALID_KEY)
+			return
 
 		location = self.request.get('location')
 		comforts = self.comforts_by_location(location)
