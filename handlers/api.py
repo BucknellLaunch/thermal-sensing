@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from lib import errors
+from lib import errors, valid
 from base import BaseHandler
 from models import Comfort, Location, Admin
 from google.appengine.api import memcache
@@ -95,6 +95,10 @@ class DataAPI(BaseHandler):
 		format '<building>-<floor>-<room>', '<building>-<floor>', or '<building>'
 		and pulls the specified records from the database. If no location is specified,
 		pulls all records"""
+		if location and not valid.location(location):
+			self.error_code = errors.INVALID_LOCATION_FORMAT
+			return []
+
 		if not location:
 			comforts = [comfort for comfort in Comfort.all()]
 		else:
@@ -103,11 +107,8 @@ class DataAPI(BaseHandler):
 				comforts = Comfort.by_room(*location_identifiers)
 			elif len(location_identifiers) == 2:
 				comforts = Comfort.by_floor(*location_identifiers)
-			elif len(location_identifiers) == 1:
-				comforts = Comfort.by_building(*location_identifiers)
 			else:
-				self.error_code = errors.INVALID_LOCATION_FORMAT
-				return []
+				comforts = Comfort.by_building(*location_identifiers)
 		return comforts
 
 
@@ -117,17 +118,16 @@ class DataAPI(BaseHandler):
 		specified, it returns a function that filters for equality."""
 		if not level:
 			return None
+		if not valid.level(level):
+			self.error_code = errors.INVALID_LEVEL
+			return None
 
 		try:
 			level_int = int(level)
 			f = lambda c: c.level == level_int
 		except ValueError:
 			qualifier = level[0]
-			try:
-				level_int = int(level[1:])
-			except ValueError:
-				self.error_code = errors.INVALID_LEVEL
-				return None
+			level_int = int(level[1:])
 
 			if qualifier == GREATER_THAN:
 				f = lambda c: c.level > level_int
@@ -137,9 +137,6 @@ class DataAPI(BaseHandler):
 				self.error_code = errors.INVALID_LEVEL_QUALIFIER
 				return None
 
-		if not level_int in range(-3, 4):
-			self.error_code = errors.INVALID_LEVEL
-			return None
 		return f
 
 
