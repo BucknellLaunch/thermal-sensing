@@ -29,6 +29,9 @@ class BaseHandler(webapp2.RequestHandler):
 	self.response.headers['Content-Type'] = 'application/json'
 	self.write(json_txt)
 
+ def set_expiration_cookie(self, name, expiration_time):
+ 	self.response.set_cookie(name, 'true', expires=expiration_time)
+
  def set_secure_cookie(self, name, val):
 	cookie_val = encrypt.make_secure_val(val)
 	self.response.set_cookie(name, cookie_val)

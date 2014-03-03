@@ -1,3 +1,4 @@
+import datetime as dt
 from base import BaseHandler
 from models import Comfort
 
@@ -6,6 +7,10 @@ class ComfortHandler(BaseHandler):
 		self.render('comfort/index')
 
 	def post(self):
+		if self.request.cookies.get('submission_timeout'):
+			self.redirect('whoops')
+			return
+
 		errors = dict()
 
 		level = self.request.get('level')
@@ -25,7 +30,8 @@ class ComfortHandler(BaseHandler):
 			c = Comfort.create(level, loc_string)
 			if c:
 				c.put()
-				self.render('comfort/thanks')
+				thirty_mins_from_now = dt.datetime.utcnow() + dt.timedelta(minutes = 30)
+				self.set_expiration_cookie('submission_timeout', thirty_mins_from_now)
 				self.redirect('thanks')
 			else:
 				errors = { 'location': loc_string + ' is not a valid location.' }
@@ -35,6 +41,11 @@ class ComfortHandler(BaseHandler):
 class ThanksHandler(BaseHandler):
 	def get(self):
 		self.render('comfort/thanks')
+
+
+class WhoopsHandler(BaseHandler):
+	def get(self):
+		self.render('comfort/whoops')
 
 
 class RecordsHandler(BaseHandler):
