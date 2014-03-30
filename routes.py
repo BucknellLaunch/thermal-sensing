@@ -9,7 +9,8 @@ route_list = [
 	('/logout', LogoutHandler),
 	('/dashboard', DashboardHandler),
 	('/api/locations', LocationsAPI),
-	('/api/data', DataAPI)
+	('/api/data', DataAPI),
+	('/api/qr/(.*?)/(\d+)', QRCodeAPI)
 ]
 
 # ?: -- means we don't want it as a query parameter

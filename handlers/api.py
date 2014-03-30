@@ -42,6 +42,15 @@ class LocationsAPI(BaseHandler):
 		self.render_json([str(location) for location in locations])
 
 
+class QRCodeAPI(BaseHandler):
+	def get(self, loc_key, level):
+		l = Location.get_by_key_name(loc_key)
+		if l:
+			self.redirect('/thanks')
+		else:
+			self.write('NOPE')
+		
+
 class DataAPI(BaseHandler):
 	def initialize(self, *a, **kw):
 		BaseHandler.initialize(self, *a, **kw)
