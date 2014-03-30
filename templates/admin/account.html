@@ -1,0 +1,71 @@
+{% extends 'admin/dashboard.html' %}
+
+{% block page_styles %}
+<link rel="stylesheet" href="/public/css/dashboard/main.css" type="text/css" media="screen" />
+{% endblock %}
+
+{% block sidebar %}
+<li>
+    <a href="/dashboard">
+        <i class="fa fa-home"></i>
+        <span>Home</span>
+    </a>
+</li>
+<li class="active">
+    <div class="pointer">
+        <div class="arrow"></div>
+        <div class="arrow_border"></div>
+    </div>
+    <a href="/account">
+        <i class="fa fa-user"></i>
+        <span>Account</span>
+    </a>
+</li>            
+{% endblock %}
+
+{% block page %}
+<div class="col-md-12">
+    <h4 class="clearfix pull-left" style="margin-bottom: 50px;">
+        Account Information
+    </h4>
+</div>
+<form class="form-horizontal" role="form">
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Display Name</label>
+        <div class="col-lg-8">
+            <p class="help-block">{{ admin.display }}</p>
+            <!--<input class="form-control" type="text" value="{{ admin.display }}">-->
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Username</label>
+        <div class="col-lg-8">
+            <p class="help-block">{{ admin.name }}</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Created On</label>
+        <div class="col-lg-8">
+            <p class="help-block">{{ admin.created }}</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">API Key</label>
+        <div class="col-lg-8">
+            <p class="help-block">{{ admin.api_key }}</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">API Requests Made</label>
+        <div class="col-lg-8">
+            <p class="help-block">{{ admin.api_requests }}</p>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="col-lg-2 control-label">Last API Request</label>
+        <div class="col-lg-8">
+            <p class="help-block">{{ admin.api_last_access }}</p>
+        </div>
+    </div>
+</form>
+{% endblock %}

@@ -1,20 +1,40 @@
-{% extends 'base.html' %}
+{% extends 'admin/base.html' %}
+
+
+{% block styles %}
+<link href="/public/css/bootstrap-overrides.css" type="text/css" rel="stylesheet" />
+
+<link type="text/css" rel="stylesheet" href="/public/css/rickshaw/graph.css">
+<link type="text/css" rel="stylesheet" href="/public/css/rickshaw/detail.css">
+<link type="text/css" rel="stylesheet" href="/public/css/rickshaw/legend.css">
+<link type="text/css" rel="stylesheet" href="/public/css/rickshaw/layout.css">
+
+<link rel="stylesheet" type="text/css" href="/public/css/dashboard/layout.css" />
+<link rel="stylesheet" type="text/css" href="/public/css/dashboard/elements.css" />
+
+{% block page_styles %}{% endblock %}
+{% endblock %}
 
 
 {% block content %}
-<div class="content centered">
-	<h1>{{ admin.name }}</h1>
-	<dl class="dl-horizontal">
-  	<dt>Display</dt>
-  	<dd>{{ admin.display }}</dd>
-  	<dt>Created</dt>
-  	<dd>{{ admin.created }}</dd>
-  	<dt>API Key</dt>
-  	<dd>{{ admin.api_key }}</dd>
-  	<dt>API Requests</dt>
-  	<dd>{{ admin.api_requests }}</dd>
-  	<dt>Last API Access</dt>
-  	<dd>{{ admin.api_last_access }}</dd>
-	</dl>
+
+{% include 'admin/nav.html' %}
+
+<div id="sidebar-nav">
+    <ul id="dashboard-menu">
+      {% block sidebar %}{% endblock %}
+    </ul>
 </div>
+
+<div class="content">
+    <div id="pad-wrapper">
+      {% block page %}{% endblock %}
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+{% block page_scripts %}{% endblock %}
 {% endblock %}

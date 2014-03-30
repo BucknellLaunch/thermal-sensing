@@ -1,0 +1,50 @@
+{% extends 'admin/dashboard.html' %}
+
+{% block page_styles %}
+<link rel="stylesheet" href="/public/css/dashboard/main.css" type="text/css" media="screen" />
+{% endblock %}
+
+{% block sidebar %}
+<li class="active">
+    <div class="pointer">
+        <div class="arrow"></div>
+        <div class="arrow_border"></div>
+    </div>
+    <a href="/dashboard">
+        <i class="fa fa-home"></i>
+        <span>Home</span>
+    </a>
+</li>            
+<li>
+    <a href="/account">
+        <i class="fa fa-user"></i>
+        <span>Account</span>
+    </a>
+</li>
+{% endblock %}
+
+{% block page %}
+<div class="row chart">
+    <div class="col-md-12">
+        <h4 class="clearfix pull-left" style="margin-bottom: 50px;">
+            Data Visualization                         
+        </h4>
+    </div>
+    <div class="col-md-12">
+        <div id="chart_container">
+            <div id="y_axis"></div>
+            <div id="chart"></div>
+            <div id="legend"></div>
+            <div id="slider"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block page_scripts %}
+<script src="/public/js/vendor/d3.v3.js"></script>
+<script src="/public/js/vendor/rickshaw.js"></script>
+
+<!-- Rickshaw data visualization code -->
+<script src="/public/js/dashboard-visualization.js"></script>
+{% endblock %}

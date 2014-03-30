@@ -49,6 +49,12 @@ class QRCodeAPI(BaseHandler):
 			self.redirect('/thanks')
 		else:
 			self.write('NOPE')
+
+"""FIX THIS"""
+class GraphAPI(BaseHandler):
+	def get(self):
+		data = eval(open('private/data.json').read())
+		self.render_json(data)
 		
 
 class DataAPI(BaseHandler):

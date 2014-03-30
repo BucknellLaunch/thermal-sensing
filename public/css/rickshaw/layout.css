@@ -1,0 +1,35 @@
+#chart_container {
+    display: table-cell;
+}
+#chart {
+    position: relative;
+    left: 40px;
+}
+#y_axis {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 40px;
+}
+#legend {
+    position: absolute;
+    left: 1000px;
+    top: 240px;
+    background-color: white;
+}
+#legend .label {
+    color: #404040;
+}
+#legend .action {
+    color: black;
+    opacity: 0.5;
+}
+#legend ul {
+    padding: 0;
+}
+#legend a:hover {
+    text-decoration: none;
+}
+#slider {
+    margin-top: 30px;
+}
