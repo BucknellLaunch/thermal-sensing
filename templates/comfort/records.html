@@ -17,7 +17,7 @@
 			{% for record in records %}
 			<tr>
 				<td>{{ record.timestamp }}</td>
-				<td>{{ record.location }}</td>
+				<td>{{ record.loc_building + record.loc_floor + record.loc_room }}</td>
 				<td>{{ record.level }}</td>
 			</tr>
 			{% endfor %}

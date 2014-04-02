@@ -7,6 +7,8 @@ from google.appengine.api import memcache
 
 MC_LOCATIONS_KEY = 'LOCATIONS'
 
+MAX_RECORDS = 100
+
 GREATER_THAN = 'g'
 LESS_THAN = 'l'
 FROM = 'from'
@@ -99,7 +101,7 @@ class DataAPI(BaseHandler):
 		if self.error_code:
 			self.render_json(self.error_code)
 		else:
-			self.render_json([comfort.as_dict() for comfort in comforts])
+			self.render_json([comfort.as_dict() for comfort in comforts][:MAX_RECORDS])
 		a.record_api_access()
 
 
