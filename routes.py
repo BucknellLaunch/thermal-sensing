@@ -4,7 +4,6 @@ route_list = [
 	('/', ComfortHandler),
 	('/thanks', ThanksHandler),
 	('/whoops', WhoopsHandler),
-	('/records', RecordsHandler),
 	('/login', LoginHandler),
 	('/logout', LogoutHandler),
 	('/dashboard', DashboardHandler),

@@ -46,9 +46,3 @@ class ThanksHandler(BaseHandler):
 class WhoopsHandler(BaseHandler):
 	def get(self):
 		self.render('comfort/whoops')
-
-
-class RecordsHandler(BaseHandler):
-	def get(self):
-		records = list(Comfort.all())
-		self.render('comfort/records', records=records)
