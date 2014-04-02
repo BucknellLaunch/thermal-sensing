@@ -9,10 +9,8 @@ MC_LOCATIONS_KEY = 'LOCATIONS'
 
 GREATER_THAN = 'g'
 LESS_THAN = 'l'
-
 FROM = 'from'
 TO = 'to'
-
 DELIMITER = '-'
 
 class LocationsAPI(BaseHandler):
