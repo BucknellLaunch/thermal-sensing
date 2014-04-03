@@ -53,7 +53,14 @@
               </label>
             </div>
 
+            {% if location %}
+            <div class="form-group">
+              <input name="location" class="location-input form-control" value="{{ location }}">
+            </div>
+            {% else %}
             <div class="form-group" id="autocomplete"></div>
+            {% endif %}
+
 
             <input class="btn btn-primary btn-block" value="Submit" type="submit"/>
           </form>

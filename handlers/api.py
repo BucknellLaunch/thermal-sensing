@@ -1,7 +1,7 @@
 from datetime import datetime
 
 from lib import errors, valid
-from base import BaseHandler
+from base import BaseHandler, BaseComfortHandler
 from models import Comfort, Location, Admin
 from google.appengine.api import memcache
 
@@ -42,13 +42,25 @@ class LocationsAPI(BaseHandler):
 		self.render_json([str(location) for location in locations])
 
 
-class QRCodeAPI(BaseHandler):
+class QRCodeAPI(BaseComfortHandler):
 	def get(self, loc_key, level):
 		l = Location.get_by_key_name(loc_key)
-		if l:
-			self.redirect('/thanks')
+		if not l:
+			self.redirect('/')
+		elif self.has_submitted_recently():
+			self.redirect('/whoops')
 		else:
-			self.write('NOPE')
+			if not level:
+				self.render('comfort/index', location=str(l))
+			else:
+				try:
+					level_int = int(level)
+					c = Comfort.create(level_int, str(l))
+					if c:
+						self.record_comfort(c)
+				except ValueError:
+					self.redirect('/')
+				
 
 """FIX THIS"""
 class GraphAPI(BaseHandler):

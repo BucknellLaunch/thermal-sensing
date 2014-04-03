@@ -4,6 +4,8 @@ import json
 import jinja2
 import webapp2
  
+import datetime as dt
+
 from models import Admin
 from lib import encrypt
 
@@ -53,3 +55,15 @@ class BaseAuthenticationHandler(BaseHandler):
 
  def logout(self):
 	self.response.delete_cookie('admin_id')
+
+
+class BaseComfortHandler(BaseHandler):
+	def has_submitted_recently(self):
+		return self.request.cookies.get('submission_timeout')
+
+	def record_comfort(self, comfort):
+		comfort.put()
+		thirty_mins_from_now = dt.datetime.utcnow() + dt.timedelta(minutes = 30)
+		self.set_expiration_cookie('submission_timeout', thirty_mins_from_now)
+		self.redirect('/thanks')
+		return

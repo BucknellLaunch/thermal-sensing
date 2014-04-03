@@ -10,7 +10,7 @@ route_list = [
 	('/account', AccountHandler),
 	('/api/locations', LocationsAPI),
 	('/api/data', DataAPI),
-	('/api/qr/(.*?)/(\d+)', QRCodeAPI),
+	('/api/qr/(.+?)(?:/(\d+))?', QRCodeAPI),
 	('/api/graph', GraphAPI)
 ]
 
