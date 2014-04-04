@@ -28,7 +28,8 @@ class Admin(db.Model):
 	@classmethod
 	def by_name(cls, name):
 		a = cls.all().filter('name = ', name).get()
-		return a
+		if name:
+			return cls.get_by_key_name(name)
 
 	@classmethod
 	def by_api_key(cls, api_key):
@@ -41,7 +42,7 @@ class Admin(db.Model):
 			display = name
 		pw_hash = encrypt.make_pw_hash(name, pw)
 		api_key = encrypt.random_hash()[:API_KEY_LENGTH]
-		return cls(display=display, name=name, passhash=pw_hash, api_key=api_key)
+		return cls(key_name=name, display=display, name=name, passhash=pw_hash, api_key=api_key)
 
 	@classmethod
 	def login(cls, name, pw):
