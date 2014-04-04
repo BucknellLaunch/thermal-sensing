@@ -1,3 +1,4 @@
+import re
 from string import capitalize
 
 from google.appengine.ext import db
@@ -17,6 +18,8 @@ def parse_location(loc_string):
 
 	if floor in '0bBgG':
 		floor = 'G'
+
+	building = re.sub(r'\W+', '', building) # only alpha characters
 	return building, floor, room
 
 def db_key(building, floor, room):
