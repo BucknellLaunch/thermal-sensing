@@ -45,13 +45,13 @@ class BaseHandler(webapp2.RequestHandler):
  def initialize(self, *a, **kw):
 	webapp2.RequestHandler.initialize(self, *a, **kw)
 	aid = self.read_secure_cookie('admin_id')
-	self.admin = aid and Admin.by_id(int(aid))
+	self.admin = aid and Admin.by_name(aid)
 	self.json = self.request.url.endswith('.json')
 
 
 class BaseAuthenticationHandler(BaseHandler):
  def login(self, admin):
-	self.set_secure_cookie('admin_id', str(admin.key().id()))
+	self.set_secure_cookie('admin_id', str(admin.key().name()))
 
  def logout(self):
 	self.response.delete_cookie('admin_id')
