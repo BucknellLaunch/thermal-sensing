@@ -13,7 +13,7 @@ class AdminHandler(BaseHandler):
 	def get_admin(self):
 		aid = self.read_secure_cookie('admin_id')
 		if aid:
-			return Admin.by_id(int(aid))
+			return Admin.by_name(aid)
 
 class DashboardHandler(AdminHandler):
 	@login_required
