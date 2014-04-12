@@ -88,6 +88,7 @@ p {
 }
 
 .location-input {
+  text-transform: capitalize;
   height: 3em;
 }
 
