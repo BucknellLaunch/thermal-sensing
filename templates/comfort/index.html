@@ -76,6 +76,16 @@
 
 
 {% block scripts %}
+<script>
+// Capitalize the first letter in the location field to enable autocomplete.
+$(function() {
+  $(".location-input").keyup(function() {
+    if (this.value.length == 0) return; 
+    capitalizedFirst = this.value[0].toLocaleUpperCase();
+    this.value = capitalizedFirst + this.value.substr(1, this.value.length);
+  });
+});
+</script>
 <script src="/public/js/vendor/complete.ly.1.0.1.js"></script>
 <script src="/public/js/autocomplete-location.js"></script>
 <script src="/public/js/scrolling-nav.js"></script>
