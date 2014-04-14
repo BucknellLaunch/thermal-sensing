@@ -9,8 +9,8 @@ from google.appengine.api import memcache
 
 MC_LOCATIONS_KEY = cfg.get('MC_LOCATIONS_KEY', '')
 MC_GRAPH_DATA_KEY = cfg.get('MC_GRAPH_DATA_KEY', '')
-
-MAX_RECORDS = 100
+MAX_RECORDS = cfg.get('data_api_max_records', 100)
+GRAPH_REFRESH = cfg.get('graph_refresh', 5)
 
 GREATER_THAN = 'g'
 LESS_THAN = 'l'
@@ -113,7 +113,7 @@ class GraphAPI(BaseHandler):
 				data = filter(lambda c: c.loc_building == building, data)
 
 			graph_data = build_graph_data(data, building)
-			memcache.set(key, graph_data, time=300)
+			memcache.set(key, graph_data, time=GRAPH_REFRESH*60)
 
 		self.render_json(graph_data)
 

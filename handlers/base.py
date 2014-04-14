@@ -9,6 +9,10 @@ import datetime as dt
 from models import Admin
 from lib import encrypt
 
+from google.appengine.api import memcache
+
+SUBMISSION_TIMEOUT = memcache.get('submission_timeout', 30)
+
 template_dir = os.path.join(os.path.dirname(__file__), '../templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
 															 autoescape = True)
@@ -63,7 +67,7 @@ class BaseComfortHandler(BaseHandler):
 
 	def record_comfort(self, comfort):
 		comfort.put()
-		thirty_mins_from_now = dt.datetime.utcnow() + dt.timedelta(minutes = 30)
-		self.set_expiration_cookie('submission_timeout', thirty_mins_from_now)
+		timeout = dt.datetime.utcnow() + dt.timedelta(minutes = SUBMISSION_TIMEOUT)
+		self.set_expiration_cookie('submission_timeout', timeout)
 		self.redirect('/thanks')
 		return
