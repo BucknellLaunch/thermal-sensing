@@ -11,6 +11,8 @@ route_list = [
 	('/dashboard', DashboardHandler),
 	('/account', AccountHandler),
 	('/rooms', RoomsHandler),
+	('/rooms/add', AddRoomsHandler),
+	('/rooms/delete', DeleteRoomsHandler),
 	
 	('/api/locations', LocationsAPI),
 	('/api/data', DataAPI),

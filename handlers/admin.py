@@ -4,6 +4,7 @@ from models import Admin
 from config import app_config as cfg
 from models import Location
 from google.appengine.api import memcache
+from google.appengine.ext import db
 
 MC_LOCATIONS_KEY = cfg.get('MC_LOCATIONS_KEY', '')
 
@@ -38,10 +39,35 @@ class DashboardHandler(AdminHandler):
 		self.render('admin/main', admin=admin, buildings=buildings, building=building)
 
 class RoomsHandler(AdminHandler):
+	def render_locations(self, **kwargs):
+		locations = get_locations()
+		self.render('admin/rooms', locations=locations, **kwargs)
+
 	@login_required
 	def get(self):
-		locations = get_locations()
-		self.render('admin/rooms', locations=locations)
+		self.render_locations()
+		return
+
+class DeleteRoomsHandler(RoomsHandler):
+	def post(self):
+		self.write('deleting rooms')
+
+class AddRoomsHandler(RoomsHandler):
+	def post(self):
+		data = self.request.get('rooms')
+		if not data:
+			self.redirect('/rooms')
+
+		rooms = [room.strip() for room in data.split('\n')]
+		locations = filter(lambda room: room is not None,
+											 [Location.create(room) for room in rooms])
+
+		db.put(locations)
+		memcache.delete(MC_LOCATIONS_KEY)
+
+		self.render_locations(msg="Successfully added the following locations",
+													modified_locs=locations)
+
 
 class AccountHandler(AdminHandler):
 	@login_required

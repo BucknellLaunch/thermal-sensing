@@ -31,12 +31,24 @@
 
 {% block page %}
 <div class="row chart">
+
+    {% if msg %}
+    <div class="alert alert-success alert-dismissable">
+        <strong>{{ msg }}</strong>
+        <ul>
+            {% for modified_loc in modified_locs %}
+            <li>{{ modified_loc }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
     <div class="col-md-6">
         <h4 class="clearfix pull-left">
             Edit Rooms                         
         </h4>
 
-        <form method="post" name="deleterooms">
+        <form method="post" action="/rooms/delete">
             <table class="table table-hover table-condensed">
               <thead>
                 <tr>
@@ -58,7 +70,7 @@
                 {% for location in locations %}
                 <tr>
                     <td>
-                        <input type="checkbox"/>
+                        <input type="checkbox" name="locations" value="{{ location.key().name() }}"/>
                     </td>
                     <td>
                         {{ location.building }}
@@ -87,7 +99,7 @@
         <p>Enter rooms in the field below separated by a newline. The following
             formats are acceptable: "[building] [room]" and "[building] Floor [floor]".
         </p>
-        <form method="post" name="addrooms">
+        <form method="post" action="/rooms/add">
             <textarea name="rooms" rows="20" style="width: 100%; resize: none"></textarea>
             <input type="submit" class="btn btn-success" value="Add Rooms"/>
         </form>

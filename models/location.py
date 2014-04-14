@@ -41,8 +41,9 @@ class Location(db.Model):
 	@classmethod
 	def create(cls, loc):
 		building, floor, room = parse_location(loc)
-		key = db_key(building, floor, room)
-		return cls(key_name=key, building=building, floor=floor, room=room)
+		if building and floor:
+			key = db_key(building, floor, room)
+			return cls(key_name=key, building=building, floor=floor, room=room)
 
 	@classmethod
 	def by_id(cls, loc_id):
