@@ -77,13 +77,9 @@ class GraphAPI(BaseHandler):
 
 		building = self.request.get('building', '')
 		key = MC_GRAPH_DATA_KEY + building
-		value = memcache.get(key, (None, None))
+		graph_data = memcache.get(key)
 
-		if value:
-			graph_data, age = value
-			now = datetime.utcnow()
-
-		if not value or ((now - age) > timedelta(minutes=5)):
+		if not graph_data:
 			def build_graph_data(comfort_data, building=None):
 				def get_location_data(comfort_data):
 					location_data = dict()
@@ -117,8 +113,7 @@ class GraphAPI(BaseHandler):
 				data = filter(lambda c: c.loc_building == building, data)
 
 			graph_data = build_graph_data(data, building)
-			age = datetime.utcnow()
-			memcache.set(key, (graph_data, age))
+			memcache.set(key, graph_data, time=300)
 
 		self.render_json(graph_data)
 

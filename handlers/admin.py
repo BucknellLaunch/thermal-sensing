@@ -2,6 +2,7 @@ from base import BaseHandler
 from models import Admin
 
 from config import app_config as cfg
+from models import Location
 from google.appengine.api import memcache
 
 MC_LOCATIONS_KEY = cfg.get('MC_LOCATIONS_KEY', '')
