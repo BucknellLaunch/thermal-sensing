@@ -1,7 +1,7 @@
 {% extends 'admin/dashboard.html' %}
 
 {% block page_styles %}
-<link rel="stylesheet" href="/public/css/dashboard/main.css" type="text/css" media="screen" />
+<link rel="stylesheet" type="text/css" href="/public/css/dashboard/main.css" media="screen" />
 {% endblock %}
 
 {% block sidebar %}
@@ -26,9 +26,22 @@
 {% block page %}
 <div class="row chart">
     <div class="col-md-12">
-        <h4 class="clearfix pull-left" style="margin-bottom: 50px;">
+        <h4 class="clearfix pull-left">
             Data Visualization                         
         </h4>
+
+        <form method="get" action="/dashboard">
+            <select name="building" class="location-select form-control">
+              <option label="Select a building" disabled></option>
+              <option name="" label="Show All"></option>
+              {% for building in buildings %}
+              <option>{{ building }}</option>
+              {% endfor %}
+            </select>
+
+            <input type="submit" value="Filter" class="btn btn-primary"></input>
+        </form>
+
     </div>
     <div class="col-md-12">
         <div id="chart_container">
@@ -47,4 +60,14 @@
 
 <!-- Rickshaw data visualization code -->
 <script src="/public/js/dashboard-visualization.js"></script>
+<script>
+queryString = {% if building %} '?building={{ building }}'
+              {% else %} '' {% endif %}
+url = 'api/graph' + queryString;
+$.ajax({
+    dataType: 'json',
+    url: url,
+    success: createGraph
+});
+</script>
 {% endblock %}

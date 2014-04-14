@@ -1,12 +1,13 @@
 from datetime import datetime, timedelta
 from string import capitalize
 
+from config import app_config as cfg
 from lib import errors, valid
 from base import BaseHandler, BaseComfortHandler
 from models import Comfort, Location, Admin
 from google.appengine.api import memcache
 
-MC_LOCATIONS_KEY = 'LOCATIONS'
+MC_LOCATIONS_KEY = cfg['MC_LOCATIONS_KEY']
 
 MAX_RECORDS = 100
 

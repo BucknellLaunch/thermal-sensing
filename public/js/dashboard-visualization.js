@@ -1,12 +1,13 @@
 function createGraph(data, status, request) {
+    console.log(data);
     var graph = new Rickshaw.Graph({
-    element: document.querySelector("#chart"),
-    width: 900,
-    height: 600,
-    renderer: 'line',
-    min: -4,
-    max: 4,
-    series: data
+        element: document.querySelector("#chart"),
+        width: 900,
+        height: 600,
+        renderer: 'line',
+        min: -4,
+        max: 4,
+        series: data
     });
 
     var y_ticks = new Rickshaw.Graph.Axis.Y({
@@ -49,9 +50,3 @@ function createGraph(data, status, request) {
     element: document.getElementById('slider')
     });
 }
-
-$.ajax({
-    dataType: 'json',
-    url: 'api/graph',
-    success: createGraph
-});

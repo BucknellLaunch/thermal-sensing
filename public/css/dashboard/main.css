@@ -194,3 +194,16 @@
     width: 53%; }
   #pad-wrapper .ui-elements .knob-wrapper + .knob-wrapper {
     margin-left: 35px; } }
+
+/* Custom CSS */
+h4.pull-left {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.location-select {
+  display: inline-block;
+  width: 700px;
+  margin-bottom: 40px;
+  text-transform: capitalize;
+}
