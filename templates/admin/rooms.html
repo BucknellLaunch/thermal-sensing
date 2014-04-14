@@ -101,7 +101,7 @@
         </p>
         <form id="addRooms" method="post" action="/rooms/add">
             <textarea name="rooms" rows="20" style="width: 100%; resize: none"></textarea>
-            <input type="submit" class="btn btn-success" value="Add Rooms"/>
+            <input id="addRoomsButton" type="submit" class="btn btn-success" value="Add Rooms" disabled/>
         </form>
     </div>
 </div>
@@ -110,9 +110,13 @@
 {% block page_scripts %}
 <script>
     var selectAllCheckbox = '#selectAll';
+
     var deleteRoomsForm = '#deleteRooms';
     var deleteRoomsButton = '#deleteRoomsButton';
     var deleteRoomsCheckboxes = deleteRoomsForm + " input:checkbox[name='location']";
+
+    var addRoomsForm = "#addRooms";
+    var addRoomsButton = "#addRoomsButton";
 
     // Select all checkbox
     $(selectAllCheckbox).change(function() {
@@ -129,6 +133,12 @@
             if (this.checked) numChecked += 1;
         });
         $(deleteRoomsButton).prop("disabled", numChecked <= 0);
+    });
+
+    // Disable the add rooms button if nothing in text area
+    $(addRoomsForm + " textarea").bind('input propertychange', function() {
+        var textPresent = $(this).val().length > 0;
+        $(addRoomsButton).prop("disabled", !textPresent);
     });
 
     // Send rooms to be deleted with AJAX

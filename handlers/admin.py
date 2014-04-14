@@ -60,7 +60,10 @@ class DeleteRoomsHandler(RoomsHandler):
 		comforts = [c for c in Comfort.all()]
 
 		for location in locations:
-			comforts_to_remove = filter(lambda c: c.loc_building == location.building and c.loc_floor == location.floor and c.loc_room == location.room, comforts)
+			comforts_to_remove = filter(lambda c: c.loc_building == location.building and \
+																						c.loc_floor == location.floor and \
+																						c.loc_room == location.room,
+																						comforts)
 			db.delete(comforts_to_remove)
 			db.delete(location)
 

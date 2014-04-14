@@ -9,9 +9,9 @@ import datetime as dt
 from models import Admin
 from lib import encrypt
 
-from google.appengine.api import memcache
+from config import app_config as cfg
 
-SUBMISSION_TIMEOUT = memcache.get('submission_timeout', 30)
+SUBMISSION_TIMEOUT = cfg.get('submission_timeout', 30)
 
 template_dir = os.path.join(os.path.dirname(__file__), '../templates')
 jinja_env = jinja2.Environment(loader = jinja2.FileSystemLoader(template_dir),
