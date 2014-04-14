@@ -4,7 +4,7 @@ from models import Admin
 from config import app_config as cfg
 from google.appengine.api import memcache
 
-MC_LOCATIONS_KEY = cfg['MC_LOCATIONS_KEY']
+MC_LOCATIONS_KEY = cfg.get('MC_LOCATIONS_KEY', '')
 
 def login_required(f):
 	def wrapper(self, *args, **kwargs):

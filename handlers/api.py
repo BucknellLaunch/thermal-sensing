@@ -7,7 +7,8 @@ from base import BaseHandler, BaseComfortHandler
 from models import Comfort, Location, Admin
 from google.appengine.api import memcache
 
-MC_LOCATIONS_KEY = cfg['MC_LOCATIONS_KEY']
+MC_LOCATIONS_KEY = cfg.get('MC_LOCATIONS_KEY', '')
+MC_GRAPH_DATA_KEY = cfg.get('MC_GRAPH_DATA_KEY', '')
 
 MAX_RECORDS = 100
 
@@ -74,41 +75,51 @@ class GraphAPI(BaseHandler):
 			self.redirect('/')
 			return
 
-		def build_graph_data(comfort_data, building=None):
-			def get_location_data(comfort_data):
-				location_data = dict()
-				for comfort in comfort_data:
-					location = comfort.loc_room if building else comfort.loc_building
-					if not location_data.get(location):
-						location_data[location] = []
-					x = int(comfort.timestamp.strftime("%s"))
-					y = comfort.level
-					data_point = { 'x': x, 'y': y }
-					location_data[location].append(data_point)
-				return location_data
+		building = self.request.get('building', '')
+		key = MC_GRAPH_DATA_KEY + building
+		value = memcache.get(key, (None, None))
 
-			location_data = get_location_data(comfort_data)
-			graph_data = []
-			for i, location in enumerate(location_data):
-				data = location_data[location]
-				sorted_data = sorted(data, key=lambda dp: dp['x'])
-				color = GraphAPI.COLORS[i % len(GraphAPI.COLORS)]
-				data_point = { 'color': color,
-											 'name': capitalize(location),
-											 'data': sorted_data }
-				graph_data.append(data_point)
-			return graph_data
+		if value:
+			graph_data, age = value
+			now = datetime.utcnow()
 
-		one_month_ago = datetime.utcnow() - timedelta(weeks = 4)
-		comforts_since_last_month = Comfort.since(one_month_ago)
-		data = [c for c in comforts_since_last_month]
+		if not value or ((now - age) > timedelta(minutes=5)):
+			def build_graph_data(comfort_data, building=None):
+				def get_location_data(comfort_data):
+					location_data = dict()
+					for comfort in comfort_data:
+						location = comfort.loc_room if building else comfort.loc_building
+						if not location_data.get(location):
+							location_data[location] = []
+						x = int(comfort.timestamp.strftime("%s"))
+						y = comfort.level
+						data_point = { 'x': x, 'y': y }
+						location_data[location].append(data_point)
+					return location_data
 
-		building = self.request.get('building')
-		if building:
-			data = filter(lambda c: c.loc_building == building, data)
-			print data
+				location_data = get_location_data(comfort_data)
+				graph_data = []
+				for i, location in enumerate(location_data):
+					data = location_data[location]
+					sorted_data = sorted(data, key=lambda dp: dp['x'])
+					color = GraphAPI.COLORS[i % len(GraphAPI.COLORS)]
+					data_point = { 'color': color,
+												 'name': capitalize(location),
+												 'data': sorted_data }
+					graph_data.append(data_point)
+				return graph_data
 
-		graph_data = build_graph_data(data, building)
+			one_month_ago = datetime.utcnow() - timedelta(weeks = 4)
+			comforts_since_last_month = Comfort.since(one_month_ago)
+			data = [c for c in comforts_since_last_month]
+
+			if building:
+				data = filter(lambda c: c.loc_building == building, data)
+
+			graph_data = build_graph_data(data, building)
+			age = datetime.utcnow()
+			memcache.set(key, (graph_data, age))
+
 		self.render_json(graph_data)
 
 		
