@@ -1,4 +1,5 @@
-from datetime import datetime
+from datetime import datetime, timedelta
+from string import capitalize
 
 from lib import errors, valid
 from base import BaseHandler, BaseComfortHandler
@@ -64,9 +65,36 @@ class QRCodeAPI(BaseComfortHandler):
 
 """FIX THIS"""
 class GraphAPI(BaseHandler):
+	COLORS = ["#ddcb53", "#c5a32f", "#7d5836", "#937a64",
+						"#963b20", "#7c2626", "#491d37", "#2f254a"]
+	# def get(self):
+	# 	data = eval(open('private/data.json').read())
+	# 	self.render_json(data)
 	def get(self):
-		data = eval(open('private/data.json').read())
-		self.render_json(data)
+		one_month_ago = datetime.utcnow() - timedelta(weeks = 4)
+		comforts_since_last_month = Comfort.since(one_month_ago)
+		data = [c.as_dict() for c in comforts_since_last_month]
+
+		building_data = dict()
+		for comfort in comforts_since_last_month:
+			building = comfort.loc_building
+			if not building_data.get(building):
+				building_data[building] = []
+			x = int(comfort.timestamp.strftime("%s"))
+			y = comfort.level
+			data_point = { 'x': x, 'y': y }
+			building_data[building].append(data_point)
+
+		graph_data = []
+		for i, building in enumerate(building_data):
+			data = building_data[building]
+			sorted_data = sorted(data, key=lambda dp: dp['x'])
+			color = GraphAPI.COLORS[i % len(GraphAPI.COLORS)]
+			data_point = { 'color': color, 'name': capitalize(building), 'data': sorted_data }
+			graph_data.append(data_point)
+
+		self.render_json(graph_data)
+
 		
 
 class DataAPI(BaseHandler):
