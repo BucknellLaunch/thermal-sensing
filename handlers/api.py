@@ -63,36 +63,51 @@ class QRCodeAPI(BaseComfortHandler):
 					self.redirect('/')
 				
 
-"""FIX THIS"""
+
 class GraphAPI(BaseHandler):
 	COLORS = ["#ddcb53", "#c5a32f", "#7d5836", "#937a64",
 						"#963b20", "#7c2626", "#491d37", "#2f254a"]
-	# def get(self):
-	# 	data = eval(open('private/data.json').read())
-	# 	self.render_json(data)
+
 	def get(self):
+		if not self.admin:
+			self.redirect('/')
+			return
+
+		def build_graph_data(comfort_data, building=None):
+			def get_location_data(comfort_data):
+				location_data = dict()
+				for comfort in comfort_data:
+					location = comfort.loc_room if building else comfort.loc_building
+					if not location_data.get(location):
+						location_data[location] = []
+					x = int(comfort.timestamp.strftime("%s"))
+					y = comfort.level
+					data_point = { 'x': x, 'y': y }
+					location_data[location].append(data_point)
+				return location_data
+
+			location_data = get_location_data(comfort_data)
+			graph_data = []
+			for i, location in enumerate(location_data):
+				data = location_data[location]
+				sorted_data = sorted(data, key=lambda dp: dp['x'])
+				color = GraphAPI.COLORS[i % len(GraphAPI.COLORS)]
+				data_point = { 'color': color,
+											 'name': capitalize(location),
+											 'data': sorted_data }
+				graph_data.append(data_point)
+			return graph_data
+
 		one_month_ago = datetime.utcnow() - timedelta(weeks = 4)
 		comforts_since_last_month = Comfort.since(one_month_ago)
-		data = [c.as_dict() for c in comforts_since_last_month]
+		data = [c for c in comforts_since_last_month]
 
-		building_data = dict()
-		for comfort in comforts_since_last_month:
-			building = comfort.loc_building
-			if not building_data.get(building):
-				building_data[building] = []
-			x = int(comfort.timestamp.strftime("%s"))
-			y = comfort.level
-			data_point = { 'x': x, 'y': y }
-			building_data[building].append(data_point)
+		building = self.request.get('building')
+		if building:
+			data = filter(lambda c: c.loc_building == building, data)
+			print data
 
-		graph_data = []
-		for i, building in enumerate(building_data):
-			data = building_data[building]
-			sorted_data = sorted(data, key=lambda dp: dp['x'])
-			color = GraphAPI.COLORS[i % len(GraphAPI.COLORS)]
-			data_point = { 'color': color, 'name': capitalize(building), 'data': sorted_data }
-			graph_data.append(data_point)
-
+		graph_data = build_graph_data(data, building)
 		self.render_json(graph_data)
 
 		
