@@ -1,8 +1,9 @@
+import json
 from base import BaseHandler
 from models import Admin
 
 from config import app_config as cfg
-from models import Location
+from models import Location, Comfort
 from google.appengine.api import memcache
 from google.appengine.ext import db
 
@@ -50,7 +51,20 @@ class RoomsHandler(AdminHandler):
 
 class DeleteRoomsHandler(RoomsHandler):
 	def post(self):
-		self.write('deleting rooms')
+		rooms_to_delete = json.loads(self.request.body)
+		if not rooms_to_delete:
+			self.redirect('/rooms')
+			return
+
+		locations = [Location.get_by_key_name(room) for room in rooms_to_delete]
+		comforts = [c for c in Comfort.all()]
+
+		for location in locations:
+			comforts_to_remove = filter(lambda c: c.loc_building == location.building and c.loc_floor == location.floor and c.loc_room == location.room, comforts)
+			db.delete(comforts_to_remove)
+			db.delete(location)
+
+		memcache.delete(MC_LOCATIONS_KEY)
 
 class AddRoomsHandler(RoomsHandler):
 	def post(self):

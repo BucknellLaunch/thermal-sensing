@@ -48,12 +48,12 @@
             Edit Rooms                         
         </h4>
 
-        <form method="post" action="/rooms/delete">
+        <form id="deleteRooms" method="get" action="/rooms">
             <table class="table table-hover table-condensed">
               <thead>
                 <tr>
                     <th>
-                        <input type="checkbox"/>
+                        <input type="checkbox" id="selectAll"/>
                     </th>
                     <th>
                         Building
@@ -70,7 +70,7 @@
                 {% for location in locations %}
                 <tr>
                     <td>
-                        <input type="checkbox" name="locations" value="{{ location.key().name() }}"/>
+                        <input type="checkbox" name="location" value="{{ location.key().name() }}"/>
                     </td>
                     <td>
                         {{ location.building }}
@@ -88,7 +88,7 @@
               </tbody>
             </table>
 
-            <input type="submit" class="btn btn-danger" value="Delete Rooms"/>
+            <input id="deleteRoomsButton" type="submit" class="btn btn-danger" value="Delete Rooms" disabled/>
         </form>
     </div>
 
@@ -99,10 +99,56 @@
         <p>Enter rooms in the field below separated by a newline. The following
             formats are acceptable: "[building] [room]" and "[building] Floor [floor]".
         </p>
-        <form method="post" action="/rooms/add">
+        <form id="addRooms" method="post" action="/rooms/add">
             <textarea name="rooms" rows="20" style="width: 100%; resize: none"></textarea>
             <input type="submit" class="btn btn-success" value="Add Rooms"/>
         </form>
     </div>
 </div>
+{% endblock %}
+
+{% block page_scripts %}
+<script>
+    var selectAllCheckbox = '#selectAll';
+    var deleteRoomsForm = '#deleteRooms';
+    var deleteRoomsButton = '#deleteRoomsButton';
+    var deleteRoomsCheckboxes = deleteRoomsForm + " input:checkbox[name='location']";
+
+    // Select all checkbox
+    $(selectAllCheckbox).change(function() {
+        var selectAllChecked = this.checked;
+        $(deleteRoomsCheckboxes).each(function() {
+            this.checked = selectAllChecked;
+        });
+    });
+
+    // Disable the delete rooms button if nothing checked
+    $(deleteRoomsForm + " input:checkbox").change(function() {
+        var numChecked = 0;
+        $(deleteRoomsForm + " input:checkbox").each(function() {
+            if (this.checked) numChecked += 1;
+        });
+        $(deleteRoomsButton).prop("disabled", numChecked <= 0);
+    });
+
+    // Send rooms to be deleted with AJAX
+    $(deleteRoomsForm).on("submit", function(event) {
+        var locationKeys = [];
+        $(deleteRoomsCheckboxes + ":checked").each(function() {
+            locationKeys.push($(this).val());
+        });
+
+        $.ajax({
+            url: '/rooms/delete',
+            type: 'POST',
+            data: JSON.stringify(locationKeys),
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            sucess: function(response) {
+                window.location.reload();
+            }
+        });
+    });
+</script>
 {% endblock %}
