@@ -23,6 +23,10 @@ class Comfort(db.Model):
 								 loc_room = location.room)
 
 	@classmethod
+	def since(cls, date):
+		return cls.all().filter("timestamp >= ", date)
+
+	@classmethod
 	def by_building(cls, building, query=None):
 		if not query:
 			query = cls.all()
@@ -51,4 +55,7 @@ class Comfort(db.Model):
 						 'timestamp': self.timestamp.strftime(DATE_FORMAT) }
 
 	def __str__(self):
-		return "Comfort level %d in %s" % (self.level, self.location)
+		return "<(%d) in (%s, %s, %s) at (%s)>" % \
+						(self.level,
+						 self.loc_building, self.loc_floor, self.loc_room,
+						 str(self.timestamp))
