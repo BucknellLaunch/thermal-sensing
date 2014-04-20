@@ -1,0 +1,131 @@
+{% extends 'admin/dashboard.html' %}
+
+{% block page_styles %}
+<link rel="stylesheet" type="text/css" href="/public/css/dashboard/main.css" media="screen" />
+{% endblock %}
+
+{% block sidebar %}
+<li>
+    <a href="/dashboard">
+        <i class="fa fa-home"></i>
+        <span>Home</span>
+    </a>
+</li>
+<li>
+    <a href="/rooms">
+        <i class="fa fa-edit"></i>
+        <span>Rooms</span>
+    </a>
+</li> 
+<li class="active">
+    <div class="pointer">
+        <div class="arrow"></div>
+        <div class="arrow_border"></div>
+    </div>
+    <a href="/qr">
+        <i class="fa fa-qrcode"></i>
+        <span>QR Codes</span>
+    </a>
+</li>
+<li>
+    <a href="/admins">
+        <i class="fa fa-users"></i>
+        <span>Admins</span>
+    </a>
+</li>           
+<li>
+    <a href="/account">
+        <i class="fa fa-user"></i>
+        <span>Account</span>
+    </a>
+</li>
+{% endblock %}
+
+{% block page %}
+<div class="row chart">
+
+    <div class="col-md-12">
+        <h4 class="clearfix pull-left">
+            Generate QR Codes                         
+        </h4>
+
+        <p>This page will generate QR codes for the locations. The QR codes can
+            be used to have users easily scan their location. A zip file will be downloaded
+            with the appropriate codes. Each room will have a red, black, and blue code.
+            The red code is for a +2 rating, the blue is for a -2 rating, and the black
+            is to allow the user to input their own comfort level for a given location.
+            <strong>Make sure to update the config.py file with the correct hostname for this
+            service to work.</strong></p>
+
+        <form id="generateQRCodes" method="post" action="/qr">
+            <table class="table table-hover table-condensed">
+              <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="selectAll"/>
+                    </th>
+                    <th>
+                        Building
+                    </th>
+                    <th>
+                        Floor
+                    </th>
+                    <th>
+                        Room
+                    </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for location in locations %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="location" value="{{ location.key().name() }}"/>
+                    </td>
+                    <td>
+                        {{ location.building }}
+                    </td>
+                    <td>
+                        {{ location.floor }}
+                    </td>
+                    <td>
+                        {% if location.room %}
+                        {{ location.room }}
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <input id="generateQRCodesButton" type="submit" class="btn btn-primary" value="Generate QR Codes" disabled/>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block page_scripts %}
+<script>
+    var selectAllCheckbox = '#selectAll';
+
+    var generateQRCodesForm = '#generateQRCodes';
+    var generateQRCodesButton = '#generateQRCodesButton';
+    var locationCheckboxes = generateQRCodesForm + " input:checkbox[name='location']";
+
+    // Select all checkbox
+    $(selectAllCheckbox).change(function() {
+        var selectAllChecked = this.checked;
+        $(locationCheckboxes).each(function() {
+            this.checked = selectAllChecked;
+        });
+    });
+
+    // Disable the generate qr button if nothing checked
+    $(generateQRCodesForm + " input:checkbox").change(function() {
+        var numChecked = 0;
+        $(generateQRCodesForm + " input:checkbox").each(function() {
+            if (this.checked) numChecked += 1;
+        });
+        $(generateQRCodesButton).prop("disabled", numChecked <= 0);
+    });
+</script>
+{% endblock %}

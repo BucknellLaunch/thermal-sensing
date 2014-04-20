@@ -20,6 +20,18 @@
         <i class="fa fa-edit"></i>
         <span>Rooms</span>
     </a>
+</li>
+<li>
+    <a href="/qr">
+        <i class="fa fa-qrcode"></i>
+        <span>QR Codes</span>
+    </a>
+</li>
+<li>
+    <a href="/admins">
+        <i class="fa fa-users"></i>
+        <span>Admins</span>
+    </a>
 </li>           
 <li>
     <a href="/account">
@@ -98,6 +110,9 @@
         </h4>
         <p>Enter rooms in the field below separated by a newline. The following
             formats are acceptable: "[building] [room]" and "[building] Floor [floor]".
+            <strong>The building name (identifier) must be one word. Buildings with
+                multiple word names should be combined into one.</strong>
+                (Eg. "Academic West" becomes "AcademicWest")
         </p>
         <form id="addRooms" method="post" action="/rooms/add">
             <textarea name="rooms" rows="20" style="width: 100%; resize: none"></textarea>

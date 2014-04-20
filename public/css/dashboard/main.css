@@ -207,3 +207,7 @@ h4.pull-left {
   margin-bottom: 40px;
   text-transform: capitalize;
 }
+
+.form-control {
+  margin-bottom: 8px;
+}

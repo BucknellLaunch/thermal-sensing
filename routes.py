@@ -10,9 +10,16 @@ route_list = [
 	
 	('/dashboard', DashboardHandler),
 	('/account', AccountHandler),
+
 	('/rooms', RoomsHandler),
 	('/rooms/add', AddRoomsHandler),
 	('/rooms/delete', DeleteRoomsHandler),
+
+	('/admins', AdminAccountsHandler),
+	('/admins/add', AddAdminAccountsHandler),
+	('/admins/delete', DeleteAdminAccountsHandler),
+
+	('/qr', QRCodesHandler),
 	
 	('/api/locations', LocationsAPI),
 	('/api/data', DataAPI),

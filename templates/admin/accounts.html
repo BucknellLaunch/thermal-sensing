@@ -1,0 +1,168 @@
+{% extends 'admin/dashboard.html' %}
+
+{% block page_styles %}
+<link rel="stylesheet" type="text/css" href="/public/css/dashboard/main.css" media="screen" />
+{% endblock %}
+
+{% block sidebar %}
+<li>
+    <a href="/dashboard">
+        <i class="fa fa-home"></i>
+        <span>Home</span>
+    </a>
+</li> 
+<li>
+    <a href="/rooms">
+        <i class="fa fa-edit"></i>
+        <span>Rooms</span>
+    </a>
+</li>
+<li>
+    <a href="/qr">
+        <i class="fa fa-qrcode"></i>
+        <span>QR Codes</span>
+    </a>
+</li>
+<li class="active">
+    <div class="pointer">
+        <div class="arrow"></div>
+        <div class="arrow_border"></div>
+    </div>
+    <a href="/admins">
+        <i class="fa fa-users"></i>
+        <span>Admins</span>
+    </a>
+</li>          
+<li>
+    <a href="/account">
+        <i class="fa fa-user"></i>
+        <span>Account</span>
+    </a>
+</li>
+{% endblock %}
+
+{% block page %}
+<div class="row chart">
+
+    {% if msg %}
+    <div class="alert alert-{{type}} alert-dismissable">
+        <strong>{{ msg }}</strong>
+    </div>
+    {% endif %}
+
+    <div class="col-md-6">
+        <h4 class="clearfix pull-left">
+            Edit Admin Accounts                         
+        </h4>
+
+        <form id="deleteAdmins" method="get" action="/admins">
+            <table class="table table-hover table-condensed">
+              <thead>
+                <tr>
+                    <th>
+                        <input type="checkbox" id="selectAll"/>
+                    </th>
+                    <th>
+                        Display
+                    </th>
+                    <th>
+                        Username
+                    </th>
+                    <th>
+                        API Key
+                    </th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for account in admins %}
+                {% if account.name != admin.name %}
+                <tr>
+                    <td>
+                        <input type="checkbox" name="admin" value="{{ account.key().name() }}"/>
+                    </td>
+                    <td>
+                        {{ account.display }}
+                    </td>
+                    <td>
+                        {{ account.name }}
+                    </td>
+                    <td>
+                        {{ account.api_key }}
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+
+            <input id="deleteAdminsButton" type="submit" class="btn btn-danger" value="Delete Admins" disabled/>
+        </form>
+    </div>
+
+    <div class="col-md-6">
+        <h4 class="clearfix pull-left">
+            Add an Admin
+        </h4>
+        <p>Enter the information for a new admin using the following form.</p>
+        <form id="addAdmins" method="post" action="/admins/add">
+            <input type="text" name="name" placeholder="Username" class="form-control">
+            <input type="text" name="display" placeholder="Display (optional)" class="form-control">
+            <input type="password" name="password" placeholder="Password" class="form-control">
+            <input type="password" name="password-confirm" placeholder="Password Confirmation" class="form-control">
+            <input id="addAdminsButton" type="submit" class="btn btn-success" value="Add Admin"/>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block page_scripts %}
+<script>
+    var selectAllCheckbox = '#selectAll';
+
+    var deleteAdminsForm = "#deleteAdmins";
+    var deleteAdminsButton = "#deleteAdminsButton";
+    var deleteAdminsCheckboxes = deleteAdminsForm + " input:checkbox[name='admin']";
+
+
+    var addAdmins = "#addAdmins";
+    var addAdminsButton = "#addAdminsButton";
+
+    // Select all checkbox
+    $(selectAllCheckbox).change(function() {
+        var selectAllChecked = this.checked;
+        $(deleteAdminsCheckboxes).each(function() {
+            this.checked = selectAllChecked;
+        });
+    });
+
+    // Disable the delete admins button if nothing checked
+    $(deleteAdminsForm + " input:checkbox").change(function() {
+        var numChecked = 0;
+        $(deleteAdminsForm + " input:checkbox").each(function() {
+            if (this.checked) numChecked += 1;
+        });
+        $(deleteAdminsButton).prop("disabled", numChecked <= 0);
+    });
+
+    // Send admins to be deleted with AJAX
+    $(deleteAdminsForm).on("submit", function(event) {
+        var adminKeys = [];
+        $(deleteAdminsCheckboxes + ":checked").each(function() {
+            adminKeys.push($(this).val());
+        });
+
+        $.ajax({
+            url: '/admins/delete',
+            type: 'POST',
+            data: JSON.stringify(adminKeys),
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            sucess: function(response) {
+                window.location.reload();
+            }
+        });
+    });
+</script>
+{% endblock %}
+
