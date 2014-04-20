@@ -67,4 +67,19 @@ Detach the screen with C-a C-d
 ## Adding the first admin
 
 It is necessary to add an admin through the console to get up and running. After that,
-control of the application can be controlled with the 
+control of the application can be controlled with the web interface (found at `/dashboard`).
+
+```
+cd ~/src/thermal-sensing
+remote_api_shell.py -s localhost
+
+# you will be prompted for an email and password
+# simply enter any valid email address and leave the password blank
+
+> from models import Admin
+> a = Admin.register('username', 'password', display='display name')
+> a.put()
+> exit()
+```
+
+Now you will be able to access `/dashboard` to log in and control the application.
