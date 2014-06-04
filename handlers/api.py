@@ -19,7 +19,16 @@ TO = 'to'
 DELIMITER = '-'
 
 class LocationsAPI(BaseHandler):
-	def get(self):
+        def put(self):
+                """Add a location to the database"""
+                building = self.request.get('building')
+                floor = self.request.get('floor')
+                location = Location.create() # todo AM
+
+                db.put(location)
+                memcache.delete(MC_LOCATIONS_KEY)
+
+        def get(self):
 		"""The API to get the list of locations from the database. The following
 		parameters can be specified:
 			building 		- (optional) the list of locations for the building
@@ -63,7 +72,7 @@ class QRCodeAPI(BaseComfortHandler):
 						self.record_comfort(c)
 				except ValueError:
 					self.redirect('/')
-				
+
 
 
 class GraphAPI(BaseHandler):
@@ -117,7 +126,7 @@ class GraphAPI(BaseHandler):
 
 		self.render_json(graph_data)
 
-		
+
 
 class DataAPI(BaseHandler):
 	def initialize(self, *a, **kw):
@@ -159,7 +168,7 @@ class DataAPI(BaseHandler):
 		to_filter = self.create_date_filter(to, TO)
 		if to_filter:
 			comforts = filter(to_filter, comforts)
-		
+
 		if self.error_code:
 			self.render_json(self.error_code)
 		else:
@@ -224,7 +233,7 @@ class DataAPI(BaseHandler):
 		"""
 		if not date:
 			return None
-		
+
 		date_identifiers = date.split(DELIMITER)
 		if len(date_identifiers) == 3:
 			format = "%m-%d-%Y"
