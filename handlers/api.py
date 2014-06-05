@@ -63,7 +63,7 @@ class QRCodeAPI(BaseComfortHandler):
 						self.record_comfort(c)
 				except ValueError:
 					self.redirect('/')
-				
+
 
 
 class GraphAPI(BaseHandler):
@@ -105,9 +105,10 @@ class GraphAPI(BaseHandler):
 					graph_data.append(data_point)
 				return graph_data
 
-			one_month_ago = datetime.utcnow() - timedelta(weeks = 4)
-			comforts_since_last_month = Comfort.since(one_month_ago)
-			data = [c for c in comforts_since_last_month]
+			#one_month_ago = datetime.utcnow() - timedelta(weeks = 4)
+                        one_year_ago = datetime.utcnow() - timedelta(years = 1)
+			comforts_since_last_year = Comfort.since(one_year_ago)
+			data = [c for c in comforts_since_last_year]
 
 			if building:
 				data = filter(lambda c: c.loc_building == building, data)
@@ -117,7 +118,7 @@ class GraphAPI(BaseHandler):
 
 		self.render_json(graph_data)
 
-		
+
 
 class DataAPI(BaseHandler):
 	def initialize(self, *a, **kw):
@@ -159,7 +160,7 @@ class DataAPI(BaseHandler):
 		to_filter = self.create_date_filter(to, TO)
 		if to_filter:
 			comforts = filter(to_filter, comforts)
-		
+
 		if self.error_code:
 			self.render_json(self.error_code)
 		else:
@@ -224,7 +225,7 @@ class DataAPI(BaseHandler):
 		"""
 		if not date:
 			return None
-		
+
 		date_identifiers = date.split(DELIMITER)
 		if len(date_identifiers) == 3:
 			format = "%m-%d-%Y"
