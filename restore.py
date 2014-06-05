@@ -11,6 +11,7 @@ fix_sys_path()
 
 from google.appengine.ext.remote_api import remote_api_stub
 import getpass
+import string
 
 def auth_func():
   return (raw_input('Username:'), getpass.getpass('Password:'))
@@ -45,14 +46,14 @@ def from_utc(utcTime,fmt="%Y-%m-%dT%H:%M:%S"):
     return datetime.datetime.strptime(utcTime, fmt)
 
 for loc in json.load(open(sys.argv[1])):
-    l = Location( building = loc['building'],
+    l = Location( building = string.capitalize(loc['building']),
                   floor = loc['floor'],
                   room = loc['room'])
     l.put()
     print (l)
 
 for comf in json.load(open(sys.argv[2])):
-    c = Comfort(loc_building = comf['loc_building'],
+    c = Comfort(loc_building = string.capitalize(comf['loc_building']),
                 loc_floor = comf['loc_floor'],
                 loc_room = comf['loc_room'],
                 level = comf['level'],
