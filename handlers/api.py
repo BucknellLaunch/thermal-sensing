@@ -114,9 +114,10 @@ class GraphAPI(BaseHandler):
 					graph_data.append(data_point)
 				return graph_data
 
-			one_month_ago = datetime.utcnow() - timedelta(weeks = 4)
-			comforts_since_last_month = Comfort.since(one_month_ago)
-			data = [c for c in comforts_since_last_month]
+			#one_month_ago = datetime.utcnow() - timedelta(weeks = 4)
+                        one_year_ago = datetime.utcnow() - timedelta(years = 1)
+			comforts_since_last_year = Comfort.since(one_year_ago)
+			data = [c for c in comforts_since_last_year]
 
 			if building:
 				data = filter(lambda c: c.loc_building == building, data)
