@@ -115,7 +115,7 @@ class GraphAPI(BaseHandler):
 				return graph_data
 
 			#one_month_ago = datetime.utcnow() - timedelta(weeks = 4)
-                        one_year_ago = datetime.utcnow() - timedelta(years = 1)
+                        one_year_ago = datetime.utcnow() - timedelta(weeks = 52)
 			comforts_since_last_year = Comfort.since(one_year_ago)
 			data = [c for c in comforts_since_last_year]
 
