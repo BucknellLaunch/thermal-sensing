@@ -19,7 +19,16 @@ TO = 'to'
 DELIMITER = '-'
 
 class LocationsAPI(BaseHandler):
-	def get(self):
+        def put(self):
+                """Add a location to the database"""
+                building = self.request.get('building')
+                floor = self.request.get('floor')
+                location = Location.create() # todo AM
+
+                db.put(location)
+                memcache.delete(MC_LOCATIONS_KEY)
+
+        def get(self):
 		"""The API to get the list of locations from the database. The following
 		parameters can be specified:
 			building 		- (optional) the list of locations for the building
